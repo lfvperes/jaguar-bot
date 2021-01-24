@@ -4,7 +4,7 @@
  */
 
 var Twit = require('twit');         // Twitter API Client for node (REST & Streaming API)
-var config = require('./jaguar-bot/config');   // Keys & Tokens stored in a separate file
+var config = require('./jaguar_bot/config');   // Keys & Tokens stored in a separate file
 var fs = require('fs');             // handling files
 var gPse = require('./google_pse');
 var img = require('./images');
