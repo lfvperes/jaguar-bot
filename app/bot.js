@@ -21,9 +21,9 @@ var T = new Twit(
 
 let interval = 1000 * 20;           // 30s between tweets
 //tweetTheGame();
-//setInterval(tweetTheGame, interval);
+setInterval(tweetTheGame, interval);
 
-setInterval(tweetPicture, interval);
+//setInterval(tweetPicture, interval);
 
 function tweetPicture() {  
   // create json file containing image links

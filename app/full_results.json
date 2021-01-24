@@ -7,9 +7,9 @@
   "queries": {
     "request": [
       {
-        "title": "Google Custom Search - testa",
-        "totalResults": "452000000",
-        "searchTerms": "testa",
+        "title": "Google Custom Search - forehead",
+        "totalResults": "1410000000",
+        "searchTerms": "forehead",
         "count": 10,
         "startIndex": 1,
         "inputEncoding": "utf8",
@@ -21,9 +21,9 @@
     ],
     "nextPage": [
       {
-        "title": "Google Custom Search - testa",
-        "totalResults": "452000000",
-        "searchTerms": "testa",
+        "title": "Google Custom Search - forehead",
+        "totalResults": "1410000000",
+        "searchTerms": "forehead",
         "count": 10,
         "startIndex": 11,
         "inputEncoding": "utf8",
@@ -38,210 +38,210 @@
     "title": "jaguar-bot-se"
   },
   "searchInformation": {
-    "searchTime": 0.382156,
-    "formattedSearchTime": "0.38",
-    "totalResults": "452000000",
-    "formattedTotalResults": "452,000,000"
+    "searchTime": 0.432031,
+    "formattedSearchTime": "0.43",
+    "totalResults": "1410000000",
+    "formattedTotalResults": "1,410,000,000"
   },
   "items": [
     {
       "kind": "customsearch#result",
-      "title": "Alvaro Testa Jr, MD | Plastic Surgeon in Gilbert & Mesa, Arizona",
-      "htmlTitle": "Alvaro \u003cb\u003eTesta\u003c/b\u003e Jr, MD | Plastic Surgeon in Gilbert &amp; Mesa, Arizona",
-      "link": "https://www.advancedsurgery.com/wp-content/uploads/2018/07/Alvaro-Testa-Jr..jpg",
-      "displayLink": "www.advancedsurgery.com",
-      "snippet": "Alvaro Testa Jr, MD | Plastic Surgeon in Gilbert & Mesa, Arizona",
-      "htmlSnippet": "Alvaro \u003cb\u003eTesta\u003c/b\u003e Jr, MD | Plastic Surgeon in Gilbert &amp; Mesa, Arizona",
+      "title": "Forehead - Wikipedia",
+      "htmlTitle": "\u003cb\u003eForehead\u003c/b\u003e - Wikipedia",
+      "link": "https://upload.wikimedia.org/wikipedia/commons/4/44/Male_forehead-01_ies.jpg",
+      "displayLink": "en.wikipedia.org",
+      "snippet": "Forehead - Wikipedia",
+      "htmlSnippet": "\u003cb\u003eForehead\u003c/b\u003e - Wikipedia",
       "mime": "image/jpeg",
       "fileFormat": "image/jpeg",
       "image": {
-        "contextLink": "https://www.advancedsurgery.com/our-surgeons/alvaro-testa-jr-md/",
-        "height": 239,
-        "width": 208,
-        "byteSize": 15532,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRNzxZ3Red3x2T4Y_1SLkYRH9s7g3DPr0JgtTC-ZJuVInnY9NOMecnSQ&s",
-        "thumbnailHeight": 109,
-        "thumbnailWidth": 95
-      }
-    },
-    {
-      "kind": "customsearch#result",
-      "title": "Joseph E. Testa, DO - An Employed Provider of Memorial Healthcare ...",
-      "htmlTitle": "Joseph E. \u003cb\u003eTesta\u003c/b\u003e, DO - An Employed Provider of Memorial Healthcare ...",
-      "link": "https://www.memorialhealthcare.org/wp-content/uploads/2018/09/Joseph_Testa_DO_SEPT2018_WEB_Suit.jpg",
-      "displayLink": "www.memorialhealthcare.org",
-      "snippet": "Joseph E. Testa, DO - An Employed Provider of Memorial Healthcare ...",
-      "htmlSnippet": "Joseph E. \u003cb\u003eTesta\u003c/b\u003e, DO - An Employed Provider of Memorial Healthcare ...",
-      "mime": "image/jpeg",
-      "fileFormat": "image/jpeg",
-      "image": {
-        "contextLink": "https://www.memorialhealthcare.org/provider/joseph-testa-do/",
-        "height": 1050,
-        "width": 750,
-        "byteSize": 175886,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP0QNdU1wBHNUSTiMpmL6NaulDPUwYGJglaY2_HDnXdRbWP2AVav80N5k&s",
-        "thumbnailHeight": 150,
-        "thumbnailWidth": 107
-      }
-    },
-    {
-      "kind": "customsearch#result",
-      "title": "Jessica Testa, MBA - Senior Manager Luxury & Lifestyle Brand ...",
-      "htmlTitle": "Jessica \u003cb\u003eTesta\u003c/b\u003e, MBA - Senior Manager Luxury &amp; Lifestyle Brand ...",
-      "link": "https://media-exp1.licdn.com/dms/image/C4E03AQGaVVsCsSHJoQ/profile-displayphoto-shrink_200_200/0/1516343004822?e=1613606400&v=beta&t=ov85oWmbJd91TzYpTEEgBy4jT6SezbTeGd-DY2OVSxE",
-      "displayLink": "www.linkedin.com",
-      "snippet": "Jessica Testa, MBA - Senior Manager Luxury & Lifestyle Brand ...",
-      "htmlSnippet": "Jessica \u003cb\u003eTesta\u003c/b\u003e, MBA - Senior Manager Luxury &amp; Lifestyle Brand ...",
-      "mime": "image/",
-      "fileFormat": "image/",
-      "image": {
-        "contextLink": "https://www.linkedin.com/in/jessicatesta",
-        "height": 200,
-        "width": 200,
-        "byteSize": 10643,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLcRUwjLeaojofHSDfEUcH9wF6Xq554TixEk-IZRzSmfSyLwTL9PtB&s",
-        "thumbnailHeight": 104,
-        "thumbnailWidth": 104
-      }
-    },
-    {
-      "kind": "customsearch#result",
-      "title": "Joey Testa | Mafia crime, Crime family, Wise guys",
-      "htmlTitle": "Joey \u003cb\u003eTesta\u003c/b\u003e | Mafia crime, Crime family, Wise guys",
-      "link": "https://i.pinimg.com/originals/e8/71/56/e871561845cca90bfabafe396b6b74dd.jpg",
-      "displayLink": "www.pinterest.com",
-      "snippet": "Joey Testa | Mafia crime, Crime family, Wise guys",
-      "htmlSnippet": "Joey \u003cb\u003eTesta\u003c/b\u003e | Mafia crime, Crime family, Wise guys",
-      "mime": "image/jpeg",
-      "fileFormat": "image/jpeg",
-      "image": {
-        "contextLink": "https://www.pinterest.com/pin/668854982135888640/",
-        "height": 1076,
-        "width": 1242,
-        "byteSize": 89656,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJvKTcIMbq3SNZQoceJBgl4wXCnbBGqHSb_tyGZerE5Hpo_UoqnWRFtro&s",
-        "thumbnailHeight": 130,
+        "contextLink": "https://en.wikipedia.org/wiki/Forehead",
+        "height": 2111,
+        "width": 3572,
+        "byteSize": 1418887,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsrKttIlWGgs2x0UD-XXRSGiETUG6lQnF_VGFWKpeoovNHEp4S7ICfIQ&s",
+        "thumbnailHeight": 89,
         "thumbnailWidth": 150
       }
     },
     {
       "kind": "customsearch#result",
-      "title": "Samantha L. Testa - Orion Multi Purpose Crew Vehicle Mechanical ...",
-      "htmlTitle": "Samantha L. \u003cb\u003eTesta\u003c/b\u003e - Orion Multi Purpose Crew Vehicle Mechanical ...",
-      "link": "https://media-exp1.licdn.com/dms/image/C5103AQEc5rXCa4nDbw/profile-displayphoto-shrink_200_200/0?e=1611187200&v=beta&t=XewUmkBcsG2NBXzM4XDb0HYtNM4t9lnTP1yr_Ut5xgA",
-      "displayLink": "www.linkedin.com",
-      "snippet": "Samantha L. Testa - Orion Multi Purpose Crew Vehicle Mechanical ...",
-      "htmlSnippet": "Samantha L. \u003cb\u003eTesta\u003c/b\u003e - Orion Multi Purpose Crew Vehicle Mechanical ...",
-      "mime": "image/",
-      "fileFormat": "image/",
-      "image": {
-        "contextLink": "https://www.linkedin.com/in/samantha-l-testa-4049a358",
-        "height": 200,
-        "width": 200,
-        "byteSize": 8021,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlOcZ-gLXWf0FsHpSR-U0yu-nGGwbgyHUuVRmJzutsYrLKx5fiek24qw&s",
-        "thumbnailHeight": 104,
-        "thumbnailWidth": 104
-      }
-    },
-    {
-      "kind": "customsearch#result",
-      "title": "Tony Testa Faculty Bio | Broadway Dance Center",
-      "htmlTitle": "Tony \u003cb\u003eTesta\u003c/b\u003e Faculty Bio | Broadway Dance Center",
-      "link": "https://www.broadwaydancecenter.com/sites/default/files/styles/bdc_faculty_bio_main_focal__5_4_/public/faculty-images/testa_tony.jpg?itok=ZrjYjKhi",
-      "displayLink": "www.broadwaydancecenter.com",
-      "snippet": "Tony Testa Faculty Bio | Broadway Dance Center",
-      "htmlSnippet": "Tony \u003cb\u003eTesta\u003c/b\u003e Faculty Bio | Broadway Dance Center",
+      "title": "The Best Anti-Aging Ingredients for Diminishing Forehead Wrinkles",
+      "htmlTitle": "The Best Anti-Aging Ingredients for Diminishing \u003cb\u003eForehead\u003c/b\u003e Wrinkles",
+      "link": "http://cdn.shopify.com/s/files/1/0100/3755/9332/articles/yora-journal-forehead-wrinkles-featured.jpg?v=1584612524",
+      "displayLink": "yora.com",
+      "snippet": "The Best Anti-Aging Ingredients for Diminishing Forehead Wrinkles",
+      "htmlSnippet": "The Best Anti-Aging Ingredients for Diminishing \u003cb\u003eForehead\u003c/b\u003e Wrinkles",
       "mime": "image/jpeg",
       "fileFormat": "image/jpeg",
       "image": {
-        "contextLink": "https://www.broadwaydancecenter.com/faculty/tony-testa",
-        "height": 640,
-        "width": 800,
-        "byteSize": 36324,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVc2ZNx_hJ44PPrj-kqXXZxZqe7HMZNWayMhLkeTrCn-8q_o0fED3DmQ&s",
-        "thumbnailHeight": 114,
-        "thumbnailWidth": 143
+        "contextLink": "https://yora.com/blogs/journal/forehead-wrinkles",
+        "height": 1088,
+        "width": 1400,
+        "byteSize": 266292,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFBZ1effTg3I7xKj9QR7__naVZCCQHQ0v5xQmP8LUTLhA-mFOasEbUnpo&s",
+        "thumbnailHeight": 117,
+        "thumbnailWidth": 150
       }
     },
     {
       "kind": "customsearch#result",
-      "title": "Paul A. Testa, MD | NYU Langone Health",
-      "htmlTitle": "Paul A. \u003cb\u003eTesta\u003c/b\u003e, MD | NYU Langone Health",
-      "link": "https://nyulangone.org/images/doctors/t/testa/1336345156/paul-a-testa-square.jpg",
-      "displayLink": "nyulangone.org",
-      "snippet": "Paul A. Testa, MD | NYU Langone Health",
-      "htmlSnippet": "Paul A. \u003cb\u003eTesta\u003c/b\u003e, MD | NYU Langone Health",
+      "title": "Forehead - Wikipedia",
+      "htmlTitle": "\u003cb\u003eForehead\u003c/b\u003e - Wikipedia",
+      "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Male_forehead-01_ies.jpg/1200px-Male_forehead-01_ies.jpg",
+      "displayLink": "en.wikipedia.org",
+      "snippet": "Forehead - Wikipedia",
+      "htmlSnippet": "\u003cb\u003eForehead\u003c/b\u003e - Wikipedia",
       "mime": "image/jpeg",
       "fileFormat": "image/jpeg",
       "image": {
-        "contextLink": "https://nyulangone.org/doctors/1336345156/paul-a-testa",
-        "height": 1000,
-        "width": 1000,
-        "byteSize": 446144,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP6ZGCRvPKofcm1JsSEO8L37XuX0tSI9jtC7j8rH84kef68_FtJkIyLWvb&s",
-        "thumbnailHeight": 149,
-        "thumbnailWidth": 149
+        "contextLink": "https://en.wikipedia.org/wiki/Forehead",
+        "height": 709,
+        "width": 1200,
+        "byteSize": 109942,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBdp8UjtoJaxkU4L6bzkfrLSQE-mVFityGzHwLo9NH3WBHsxs_r3jCuak&s",
+        "thumbnailHeight": 89,
+        "thumbnailWidth": 150
       }
     },
     {
       "kind": "customsearch#result",
-      "title": "Juan Testa - IMDb",
-      "htmlTitle": "Juan \u003cb\u003eTesta\u003c/b\u003e - IMDb",
-      "link": "https://m.media-amazon.com/images/M/MV5BY2QzYzc3NjctMWJhZS00ZTU0LTllYzItODExMTc0Y2ZmMTE5XkEyXkFqcGdeQXVyMzM4NTE2OTQ@._V1_UY317_CR204,0,214,317_AL_.jpg",
-      "displayLink": "www.imdb.com",
-      "snippet": "Juan Testa - IMDb",
-      "htmlSnippet": "Juan \u003cb\u003eTesta\u003c/b\u003e - IMDb",
+      "title": "Beverly Hills Forehead Reduction | Los Angeles Forehead Reduction",
+      "htmlTitle": "Beverly Hills \u003cb\u003eForehead\u003c/b\u003e Reduction | Los Angeles \u003cb\u003eForehead\u003c/b\u003e Reduction",
+      "link": "https://www.bevhills.com/services/face/forehead-reduction/img/female-face-thirds.jpg",
+      "displayLink": "www.bevhills.com",
+      "snippet": "Beverly Hills Forehead Reduction | Los Angeles Forehead Reduction",
+      "htmlSnippet": "Beverly Hills \u003cb\u003eForehead\u003c/b\u003e Reduction | Los Angeles \u003cb\u003eForehead\u003c/b\u003e Reduction",
       "mime": "image/jpeg",
       "fileFormat": "image/jpeg",
       "image": {
-        "contextLink": "https://www.imdb.com/name/nm2086598/",
-        "height": 317,
-        "width": 214,
-        "byteSize": 7566,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK8dmfmYbAXBq3ayXR-XPf9911OzADGmKtfqK-yFhOjHJWxIo0Q6qH8w&s",
-        "thumbnailHeight": 118,
-        "thumbnailWidth": 80
-      }
-    },
-    {
-      "kind": "customsearch#result",
-      "title": "Patrick Testa | Mafia Wiki | Fandom",
-      "htmlTitle": "Patrick \u003cb\u003eTesta\u003c/b\u003e | Mafia Wiki | Fandom",
-      "link": "https://static.wikia.nocookie.net/mafia/images/c/c2/Patrick_testa.jpg/revision/latest/scale-to-width-down/340?cb=20101227221108",
-      "displayLink": "mafia.wikia.org",
-      "snippet": "Patrick Testa | Mafia Wiki | Fandom",
-      "htmlSnippet": "Patrick \u003cb\u003eTesta\u003c/b\u003e | Mafia Wiki | Fandom",
-      "mime": "image/",
-      "fileFormat": "image/",
-      "image": {
-        "contextLink": "https://mafia.wikia.org/wiki/Patrick_Testa",
-        "height": 200,
-        "width": 136,
-        "byteSize": 4857,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOi9g4PEGa8fclG_TWrdOnzK7PN8e0Az52JbOoWBH1A2K3jJwM0qJl&s",
-        "thumbnailHeight": 104,
-        "thumbnailWidth": 71
-      }
-    },
-    {
-      "kind": "customsearch#result",
-      "title": "Peter Testa - SCI-Arc",
-      "htmlTitle": "Peter \u003cb\u003eTesta\u003c/b\u003e - SCI-Arc",
-      "link": "https://storage.googleapis.com/sci-arc/images/PeterTesta_faculty_portraits_641_S.jpg?mtime=20160201161850",
-      "displayLink": "www.sciarc.edu",
-      "snippet": "Peter Testa - SCI-Arc",
-      "htmlSnippet": "Peter \u003cb\u003eTesta\u003c/b\u003e - SCI-Arc",
-      "mime": "image/jpeg",
-      "fileFormat": "image/jpeg",
-      "image": {
-        "contextLink": "https://www.sciarc.edu/people/faculty/peter-testa",
-        "height": 2800,
-        "width": 2000,
-        "byteSize": 2860077,
-        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhvLcnJqFNc2BvGipA6ZiNtORVIZfHdE7cusMgjpxUMrBWOzg9S9yWEQ&s",
+        "contextLink": "https://www.bevhills.com/services/face/forehead-reduction/",
+        "height": 1024,
+        "width": 883,
+        "byteSize": 116105,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5YEAAqRz6eQnFDlREeQNtoFSNU48Dq6Bj9jHAeAmxOg0QYJCNQx0Z59VW&s",
         "thumbnailHeight": 150,
-        "thumbnailWidth": 107
+        "thumbnailWidth": 129
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "forehead - Wiktionary",
+      "htmlTitle": "\u003cb\u003eforehead\u003c/b\u003e - Wiktionary",
+      "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Human_Forehead.JPG/1200px-Human_Forehead.JPG",
+      "displayLink": "en.wiktionary.org",
+      "snippet": "forehead - Wiktionary",
+      "htmlSnippet": "\u003cb\u003eforehead\u003c/b\u003e - Wiktionary",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://en.wiktionary.org/wiki/forehead",
+        "height": 900,
+        "width": 1200,
+        "byteSize": 127080,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2qfxvFEJGmVUk0tEwD1qPZ2CvjoDaatVcPTyriLj1xUzcvPJFEjyZh80&s",
+        "thumbnailHeight": 113,
+        "thumbnailWidth": 150
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "The Most Flattering Haircuts for Large Foreheads, According to a ...",
+      "htmlTitle": "The Most Flattering Haircuts for Large \u003cb\u003eForeheads\u003c/b\u003e, According to a ...",
+      "link": "https://www.byrdie.com/thmb/rbKbNYAtbDeOKB9_oGLbhQKVeeU=/1706x2030/filters:fill(auto,1)/rachelmcadams-12dcf1f590fb43818c892b88c43de17b.jpg",
+      "displayLink": "www.byrdie.com",
+      "snippet": "The Most Flattering Haircuts for Large Foreheads, According to a ...",
+      "htmlSnippet": "The Most Flattering Haircuts for Large \u003cb\u003eForeheads\u003c/b\u003e, According to a ...",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.byrdie.com/haircuts-to-hide-a-big-forehead",
+        "height": 2030,
+        "width": 1706,
+        "byteSize": 276699,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSvWTeTbNM_glM_aJP5_0MMYCE4KQnZ58mnCni4e2j4t9Lp5FU1F74LuE&s",
+        "thumbnailHeight": 150,
+        "thumbnailWidth": 126
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "My therapist: Big forehead Wilbur isn't real and he can't hurt you ...",
+      "htmlTitle": "My therapist: Big \u003cb\u003eforehead\u003c/b\u003e Wilbur isn&#39;t real and he can&#39;t hurt you ...",
+      "link": "https://i.redd.it/krisvwbfq6s41.jpg",
+      "displayLink": "www.reddit.com",
+      "snippet": "My therapist: Big forehead Wilbur isn't real and he can't hurt you ...",
+      "htmlSnippet": "My therapist: Big \u003cb\u003eforehead\u003c/b\u003e Wilbur isn&#39;t real and he can&#39;t hurt you ...",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.reddit.com/r/wilbursoot/comments/fz4ie8/my_therapist_big_forehead_wilbur_isnt_real_and_he/",
+        "height": 1080,
+        "width": 1913,
+        "byteSize": 472452,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSwNe9-To-6VLWnxLy3UyW5hu8mgS-5hjvElGbI8uk085H-XNr69P0RV8&s",
+        "thumbnailHeight": 85,
+        "thumbnailWidth": 150
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Brow (Forehead) Lift | The Center for Facial Plastic Surgery",
+      "htmlTitle": "Brow (\u003cb\u003eForehead\u003c/b\u003e) Lift | The Center for Facial Plastic Surgery",
+      "link": "http://www.chicagofacialplastics.com/wp-content/uploads/2015/09/forehead-brow-lift.jpg",
+      "displayLink": "www.chicagofacialplastics.com",
+      "snippet": "Brow (Forehead) Lift | The Center for Facial Plastic Surgery",
+      "htmlSnippet": "Brow (\u003cb\u003eForehead\u003c/b\u003e) Lift | The Center for Facial Plastic Surgery",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "http://www.chicagofacialplastics.com/service/brow-forehead-lift/",
+        "height": 768,
+        "width": 1024,
+        "byteSize": 203856,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoQJHVWO_q_RgHXoCBUxHTah-yyQz2QhYLeov4d5yn1iB9lXy7MGUqTg&s",
+        "thumbnailHeight": 113,
+        "thumbnailWidth": 150
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Rihanna hits back at fan who criticises her shiny forehead",
+      "htmlTitle": "Rihanna hits back at fan who criticises her shiny \u003cb\u003eforehead\u003c/b\u003e",
+      "link": "https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/30/2019/10/GettyImages-1175576177_353968152_619208322-630x473.jpg",
+      "displayLink": "www.celebsnow.co.uk",
+      "snippet": "Rihanna hits back at fan who criticises her shiny forehead",
+      "htmlSnippet": "Rihanna hits back at fan who criticises her shiny \u003cb\u003eforehead\u003c/b\u003e",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.celebsnow.co.uk/latest-celebrity-news/rihanna-defends-herself-beauty-critic-800654",
+        "height": 473,
+        "width": 630,
+        "byteSize": 37495,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI0XlpLNQFGGK1ftgh9D5IuH9HKAAw7GfEvJq-SsOoalKVSDddtCs5xb0&s",
+        "thumbnailHeight": 103,
+        "thumbnailWidth": 137
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "I fixed JJ's forehead. : ksi",
+      "htmlTitle": "I fixed JJ&#39;s \u003cb\u003eforehead\u003c/b\u003e. : ksi",
+      "link": "https://i.redd.it/3iz00l4ib9g51.jpg",
+      "displayLink": "www.reddit.com",
+      "snippet": "I fixed JJ's forehead. : ksi",
+      "htmlSnippet": "I fixed JJ&#39;s \u003cb\u003eforehead\u003c/b\u003e. : ksi",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.reddit.com/r/ksi/comments/i7fz7q/i_fixed_jjs_forehead/",
+        "height": 731,
+        "width": 750,
+        "byteSize": 45792,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtyXwkooLzTZO9NHoYRNXiV165bzrjq9_UaYezu9Fk6NH8v7bAza8I7hNC&s",
+        "thumbnailHeight": 137,
+        "thumbnailWidth": 141
       }
     }
   ]
