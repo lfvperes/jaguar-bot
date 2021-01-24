@@ -1,0 +1,248 @@
+{
+  "kind": "customsearch#search",
+  "url": {
+    "type": "application/json",
+    "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+  },
+  "queries": {
+    "request": [
+      {
+        "title": "Google Custom Search - testa",
+        "totalResults": "452000000",
+        "searchTerms": "testa",
+        "count": 10,
+        "startIndex": 1,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "820675ee8f1f28e4f",
+        "searchType": "image"
+      }
+    ],
+    "nextPage": [
+      {
+        "title": "Google Custom Search - testa",
+        "totalResults": "452000000",
+        "searchTerms": "testa",
+        "count": 10,
+        "startIndex": 11,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "820675ee8f1f28e4f",
+        "searchType": "image"
+      }
+    ]
+  },
+  "context": {
+    "title": "jaguar-bot-se"
+  },
+  "searchInformation": {
+    "searchTime": 0.382156,
+    "formattedSearchTime": "0.38",
+    "totalResults": "452000000",
+    "formattedTotalResults": "452,000,000"
+  },
+  "items": [
+    {
+      "kind": "customsearch#result",
+      "title": "Alvaro Testa Jr, MD | Plastic Surgeon in Gilbert & Mesa, Arizona",
+      "htmlTitle": "Alvaro \u003cb\u003eTesta\u003c/b\u003e Jr, MD | Plastic Surgeon in Gilbert &amp; Mesa, Arizona",
+      "link": "https://www.advancedsurgery.com/wp-content/uploads/2018/07/Alvaro-Testa-Jr..jpg",
+      "displayLink": "www.advancedsurgery.com",
+      "snippet": "Alvaro Testa Jr, MD | Plastic Surgeon in Gilbert & Mesa, Arizona",
+      "htmlSnippet": "Alvaro \u003cb\u003eTesta\u003c/b\u003e Jr, MD | Plastic Surgeon in Gilbert &amp; Mesa, Arizona",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.advancedsurgery.com/our-surgeons/alvaro-testa-jr-md/",
+        "height": 239,
+        "width": 208,
+        "byteSize": 15532,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRNzxZ3Red3x2T4Y_1SLkYRH9s7g3DPr0JgtTC-ZJuVInnY9NOMecnSQ&s",
+        "thumbnailHeight": 109,
+        "thumbnailWidth": 95
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Joseph E. Testa, DO - An Employed Provider of Memorial Healthcare ...",
+      "htmlTitle": "Joseph E. \u003cb\u003eTesta\u003c/b\u003e, DO - An Employed Provider of Memorial Healthcare ...",
+      "link": "https://www.memorialhealthcare.org/wp-content/uploads/2018/09/Joseph_Testa_DO_SEPT2018_WEB_Suit.jpg",
+      "displayLink": "www.memorialhealthcare.org",
+      "snippet": "Joseph E. Testa, DO - An Employed Provider of Memorial Healthcare ...",
+      "htmlSnippet": "Joseph E. \u003cb\u003eTesta\u003c/b\u003e, DO - An Employed Provider of Memorial Healthcare ...",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.memorialhealthcare.org/provider/joseph-testa-do/",
+        "height": 1050,
+        "width": 750,
+        "byteSize": 175886,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP0QNdU1wBHNUSTiMpmL6NaulDPUwYGJglaY2_HDnXdRbWP2AVav80N5k&s",
+        "thumbnailHeight": 150,
+        "thumbnailWidth": 107
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Jessica Testa, MBA - Senior Manager Luxury & Lifestyle Brand ...",
+      "htmlTitle": "Jessica \u003cb\u003eTesta\u003c/b\u003e, MBA - Senior Manager Luxury &amp; Lifestyle Brand ...",
+      "link": "https://media-exp1.licdn.com/dms/image/C4E03AQGaVVsCsSHJoQ/profile-displayphoto-shrink_200_200/0/1516343004822?e=1613606400&v=beta&t=ov85oWmbJd91TzYpTEEgBy4jT6SezbTeGd-DY2OVSxE",
+      "displayLink": "www.linkedin.com",
+      "snippet": "Jessica Testa, MBA - Senior Manager Luxury & Lifestyle Brand ...",
+      "htmlSnippet": "Jessica \u003cb\u003eTesta\u003c/b\u003e, MBA - Senior Manager Luxury &amp; Lifestyle Brand ...",
+      "mime": "image/",
+      "fileFormat": "image/",
+      "image": {
+        "contextLink": "https://www.linkedin.com/in/jessicatesta",
+        "height": 200,
+        "width": 200,
+        "byteSize": 10643,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLcRUwjLeaojofHSDfEUcH9wF6Xq554TixEk-IZRzSmfSyLwTL9PtB&s",
+        "thumbnailHeight": 104,
+        "thumbnailWidth": 104
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Joey Testa | Mafia crime, Crime family, Wise guys",
+      "htmlTitle": "Joey \u003cb\u003eTesta\u003c/b\u003e | Mafia crime, Crime family, Wise guys",
+      "link": "https://i.pinimg.com/originals/e8/71/56/e871561845cca90bfabafe396b6b74dd.jpg",
+      "displayLink": "www.pinterest.com",
+      "snippet": "Joey Testa | Mafia crime, Crime family, Wise guys",
+      "htmlSnippet": "Joey \u003cb\u003eTesta\u003c/b\u003e | Mafia crime, Crime family, Wise guys",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.pinterest.com/pin/668854982135888640/",
+        "height": 1076,
+        "width": 1242,
+        "byteSize": 89656,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJvKTcIMbq3SNZQoceJBgl4wXCnbBGqHSb_tyGZerE5Hpo_UoqnWRFtro&s",
+        "thumbnailHeight": 130,
+        "thumbnailWidth": 150
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Samantha L. Testa - Orion Multi Purpose Crew Vehicle Mechanical ...",
+      "htmlTitle": "Samantha L. \u003cb\u003eTesta\u003c/b\u003e - Orion Multi Purpose Crew Vehicle Mechanical ...",
+      "link": "https://media-exp1.licdn.com/dms/image/C5103AQEc5rXCa4nDbw/profile-displayphoto-shrink_200_200/0?e=1611187200&v=beta&t=XewUmkBcsG2NBXzM4XDb0HYtNM4t9lnTP1yr_Ut5xgA",
+      "displayLink": "www.linkedin.com",
+      "snippet": "Samantha L. Testa - Orion Multi Purpose Crew Vehicle Mechanical ...",
+      "htmlSnippet": "Samantha L. \u003cb\u003eTesta\u003c/b\u003e - Orion Multi Purpose Crew Vehicle Mechanical ...",
+      "mime": "image/",
+      "fileFormat": "image/",
+      "image": {
+        "contextLink": "https://www.linkedin.com/in/samantha-l-testa-4049a358",
+        "height": 200,
+        "width": 200,
+        "byteSize": 8021,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlOcZ-gLXWf0FsHpSR-U0yu-nGGwbgyHUuVRmJzutsYrLKx5fiek24qw&s",
+        "thumbnailHeight": 104,
+        "thumbnailWidth": 104
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Tony Testa Faculty Bio | Broadway Dance Center",
+      "htmlTitle": "Tony \u003cb\u003eTesta\u003c/b\u003e Faculty Bio | Broadway Dance Center",
+      "link": "https://www.broadwaydancecenter.com/sites/default/files/styles/bdc_faculty_bio_main_focal__5_4_/public/faculty-images/testa_tony.jpg?itok=ZrjYjKhi",
+      "displayLink": "www.broadwaydancecenter.com",
+      "snippet": "Tony Testa Faculty Bio | Broadway Dance Center",
+      "htmlSnippet": "Tony \u003cb\u003eTesta\u003c/b\u003e Faculty Bio | Broadway Dance Center",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.broadwaydancecenter.com/faculty/tony-testa",
+        "height": 640,
+        "width": 800,
+        "byteSize": 36324,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVc2ZNx_hJ44PPrj-kqXXZxZqe7HMZNWayMhLkeTrCn-8q_o0fED3DmQ&s",
+        "thumbnailHeight": 114,
+        "thumbnailWidth": 143
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Paul A. Testa, MD | NYU Langone Health",
+      "htmlTitle": "Paul A. \u003cb\u003eTesta\u003c/b\u003e, MD | NYU Langone Health",
+      "link": "https://nyulangone.org/images/doctors/t/testa/1336345156/paul-a-testa-square.jpg",
+      "displayLink": "nyulangone.org",
+      "snippet": "Paul A. Testa, MD | NYU Langone Health",
+      "htmlSnippet": "Paul A. \u003cb\u003eTesta\u003c/b\u003e, MD | NYU Langone Health",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://nyulangone.org/doctors/1336345156/paul-a-testa",
+        "height": 1000,
+        "width": 1000,
+        "byteSize": 446144,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP6ZGCRvPKofcm1JsSEO8L37XuX0tSI9jtC7j8rH84kef68_FtJkIyLWvb&s",
+        "thumbnailHeight": 149,
+        "thumbnailWidth": 149
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Juan Testa - IMDb",
+      "htmlTitle": "Juan \u003cb\u003eTesta\u003c/b\u003e - IMDb",
+      "link": "https://m.media-amazon.com/images/M/MV5BY2QzYzc3NjctMWJhZS00ZTU0LTllYzItODExMTc0Y2ZmMTE5XkEyXkFqcGdeQXVyMzM4NTE2OTQ@._V1_UY317_CR204,0,214,317_AL_.jpg",
+      "displayLink": "www.imdb.com",
+      "snippet": "Juan Testa - IMDb",
+      "htmlSnippet": "Juan \u003cb\u003eTesta\u003c/b\u003e - IMDb",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.imdb.com/name/nm2086598/",
+        "height": 317,
+        "width": 214,
+        "byteSize": 7566,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK8dmfmYbAXBq3ayXR-XPf9911OzADGmKtfqK-yFhOjHJWxIo0Q6qH8w&s",
+        "thumbnailHeight": 118,
+        "thumbnailWidth": 80
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Patrick Testa | Mafia Wiki | Fandom",
+      "htmlTitle": "Patrick \u003cb\u003eTesta\u003c/b\u003e | Mafia Wiki | Fandom",
+      "link": "https://static.wikia.nocookie.net/mafia/images/c/c2/Patrick_testa.jpg/revision/latest/scale-to-width-down/340?cb=20101227221108",
+      "displayLink": "mafia.wikia.org",
+      "snippet": "Patrick Testa | Mafia Wiki | Fandom",
+      "htmlSnippet": "Patrick \u003cb\u003eTesta\u003c/b\u003e | Mafia Wiki | Fandom",
+      "mime": "image/",
+      "fileFormat": "image/",
+      "image": {
+        "contextLink": "https://mafia.wikia.org/wiki/Patrick_Testa",
+        "height": 200,
+        "width": 136,
+        "byteSize": 4857,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOi9g4PEGa8fclG_TWrdOnzK7PN8e0Az52JbOoWBH1A2K3jJwM0qJl&s",
+        "thumbnailHeight": 104,
+        "thumbnailWidth": 71
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Peter Testa - SCI-Arc",
+      "htmlTitle": "Peter \u003cb\u003eTesta\u003c/b\u003e - SCI-Arc",
+      "link": "https://storage.googleapis.com/sci-arc/images/PeterTesta_faculty_portraits_641_S.jpg?mtime=20160201161850",
+      "displayLink": "www.sciarc.edu",
+      "snippet": "Peter Testa - SCI-Arc",
+      "htmlSnippet": "Peter \u003cb\u003eTesta\u003c/b\u003e - SCI-Arc",
+      "mime": "image/jpeg",
+      "fileFormat": "image/jpeg",
+      "image": {
+        "contextLink": "https://www.sciarc.edu/people/faculty/peter-testa",
+        "height": 2800,
+        "width": 2000,
+        "byteSize": 2860077,
+        "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhvLcnJqFNc2BvGipA6ZiNtORVIZfHdE7cusMgjpxUMrBWOzg9S9yWEQ&s",
+        "thumbnailHeight": 150,
+        "thumbnailWidth": 107
+      }
+    }
+  ]
+}
