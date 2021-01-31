@@ -6,7 +6,7 @@ const fs = require('fs');
 // search parameters from the Custom Search Engine API
 var key = g.key;
 var cx = g.cx;
-var q = 'forehead';
+var q = 'jaguar';
 var search_type = 'image';
 
 // uri for the request
@@ -37,7 +37,7 @@ function search(res) {
     'end',
     () => {
       var body = Buffer.concat(bodyChunks);
-      console.log('BODY: ' + body);
+      //console.log('BODY: ' + body);
       // save results on external files
       save_results(body);
     }

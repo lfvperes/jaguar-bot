@@ -2,16 +2,19 @@ var imgDl = require('image-downloader'),
     fs = require('fs');                                                    
 
 function download_from(filename) {
-  // reading links from file
+  // parameters to read the file
   var links = [];
   options = {
     encoding: 'utf8',
     flag: 'r'
   };
+  // reading urls from file
   var data = fs.readFileSync(filename, options);
   JSON.parse(data).map((link) => {
+    // storing urls on variable
     links.push(link);
   });
+  // download images from the saved urls
   download(links);
 }
 /*
@@ -28,9 +31,8 @@ function download_from(filename) {
 
 
 function download(urls) {
-  let N = Math.floor(Math.random() * urls.length);
-  console.log('Downloading from ' + urls[N] + ', the element #' + N);
-  var ext = urls[N].slice(-3);
+  let N = Math.floor(Math.random() * (urls.length - 1));
+  console.log('Downloading from ' + urls[N] + ', the element #' + (N + 1));
   const options = {
     url: urls[N],
     dest: './img/image.jpg'

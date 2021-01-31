@@ -19,16 +19,13 @@ var T = new Twit(
     strictSSL:            true     // optional - requires SSL certificates to be valid.
   });
 
-let interval = 1000 * 30;           // 30s between tweets
-//tweetTheGame();
-//setInterval(tweetTheGame, interval);
+let interval = 1000 * 15;           // 30s between tweets
+setTimeout(() => { tweetPicture(); }, interval);
+setTimeout(() => { tweetTheGame(); }, 2 * interval);
 
-setInterval(() => {
-  tweetPicture();
-  tweetTheGame();
-}, interval);
-
-function tweetPicture() {  
+function tweetPicture() {
+  console.log('-------------------');
+  console.log('Will tweet a picture');
   // create json file containing image links
   gPse.get_images();
 
@@ -74,6 +71,7 @@ function tweeted(err, data, response) {
     console.log('Yay it worked!');
     console.log('Text tweeted: ' + data.text);
     console.log('Date of the tweet: ' + data.created_at);
+    console.log('-------------------');
   }
 }
 
