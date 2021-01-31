@@ -1,7 +1,11 @@
-const Twitter = require('twitter-lite');
-const Actions = require('./actions');
-const config = require('./config');
+const Twitter = require('twitter');
+//const { google } = require('googleapis');
 
+const Bot = require('./Bot');
+const Crawler = require('./Crawler');
+
+const config = require('./config');
+const gk = require('./google_keys');
 
 const client = new Twitter({
     consumer_key: config.consumer_key,
@@ -10,7 +14,9 @@ const client = new Twitter({
     access_token_secret: config.access_token_secret
 });
 
-const actions = new Actions(client);
+const bot = new Bot(client);
+const crawler = new Crawler(gk);
 
-
-actions.tweet_game();
+//bot.tweet_game();
+//bot.tweet_media();
+crawler.get_images('jaguar');
