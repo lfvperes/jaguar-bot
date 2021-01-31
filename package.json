@@ -1,23 +1,27 @@
 {
   "name": "twitter-bot",
-  "version": "1.0.0",
-  "description": "This is a twitter bot that will post animal pictures every day. Species not chosen yet.",
-  "main": "bot.js",
+  "version": "1.1.0",
+  "description": "A twitter bot that searches for images and post them.",
+  "main": "index.js",
   "scripts": {
-    "start": "node bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lfvperes/twitter-bot.git"
+  },
   "keywords": [
-    "species",
-    "classification"
+    "twitter",
+    "bot",
+    "node"
   ],
   "author": "lfvperes",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lfvperes/twitter-bot/issues"
+  },
+  "homepage": "https://github.com/lfvperes/twitter-bot#readme",
   "dependencies": {
-    "googleapis": "^67.0.0",
-    "heroku": "^7.47.11",
-    "http": "0.0.1-security",
-    "image-downloader": "^4.0.2",
-    "twit": "^2.2.11"
+    "twitter-lite": "^0.14.0"
   }
 }

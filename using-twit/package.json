@@ -1,0 +1,23 @@
+{
+  "name": "twitter-bot",
+  "version": "1.0.0",
+  "description": "This is a twitter bot that will post animal pictures every day. Species not chosen yet.",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "species",
+    "classification"
+  ],
+  "author": "lfvperes",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^67.0.0",
+    "heroku": "^7.47.11",
+    "http": "0.0.1-security",
+    "image-downloader": "^4.0.2",
+    "twit": "^2.2.11"
+  }
+}
