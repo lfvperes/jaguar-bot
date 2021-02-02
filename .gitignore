@@ -3,5 +3,5 @@ node_modules
 full_results.json
 image_links.json
 
-config.js
-google_keys.js
+config/*
+reference

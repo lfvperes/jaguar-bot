@@ -6,16 +6,24 @@ class Crawler {
         // search parameters from the Custom Search Engine API
         this.key = config.key;
         this.cx = config.cx;
-        this.q = '';
+        this.q = '';        // query
         this.search_type = 'image';
         this.base_uri = ''; 
+        this.num = 10;      // default count
+        this.start = 0;     // first result
+
     }
 
     set_uri() {
         // uri for the request
         this.base_uri = `
-        https://www.googleapis.com/customsearch/v1?key=\
-        ${this.key}&cx=${this.cx}&q=${this.q}&searchType=${this.search_type}
+        https://www.googleapis.com/customsearch/v1?\
+        key=${this.key}\
+        &cx=${this.cx}\
+        &q=${this.q}\
+        &searchType=${this.search_type}\
+        &num=${this.num}\
+        &start=${this.start}\
         `;
     }
 
@@ -33,7 +41,8 @@ class Crawler {
     }
 
     // callback for get_images
-    search(res) {
+    search(res, start=0) {
+        this.start = start;
         console.log('Searching for images');
         // confirm success
         console.log('STATUS: ' + res.statusCode);
@@ -57,8 +66,8 @@ class Crawler {
                 var image_links = JSON.parse(body).items.map(
                     (item) => { return item.link; }
                 );
-                fs.writeFileSync('full_results.json', body);
-                fs.writeFileSync('image_links.json', JSON.stringify(image_links));
+                fs.writeFileSync('./data/full_results.json', body);
+                fs.writeFileSync('./data/image_links.json', JSON.stringify(image_links));
             }
         );
     }
@@ -68,8 +77,8 @@ class Crawler {
         var image_links = JSON.parse(obj).items.map(
             (item) => { return item.link; }
         );
-        fs.writeFileSync('full_results.json', obj);
-        fs.writeFileSync('image_links.json', JSON.stringify(image_links));
+        fs.writeFileSync('./data/full_results.json', obj);
+        fs.writeFileSync('./data/image_links.json', JSON.stringify(image_links));
     }
 
 }

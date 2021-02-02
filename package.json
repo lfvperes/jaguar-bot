@@ -1,7 +1,7 @@
 {
-  "name": "twitter-bot",
-  "version": "1.1.0",
-  "description": "A twitter bot that searches for images and post them.",
+  "name": "jaguar-bot",
+  "version": "1.2.0",
+  "description": "A twitter bot that searches for Jaguar images and post them.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lfvperes/twitter-bot.git"
+    "url": "git+https://github.com/lfvperes/jaguar-bot.git"
   },
   "keywords": [
     "twitter",
@@ -19,11 +19,10 @@
   "author": "lfvperes",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lfvperes/twitter-bot/issues"
+    "url": "https://github.com/lfvperes/jaguar-bot/issues"
   },
-  "homepage": "https://github.com/lfvperes/twitter-bot#readme",
+  "homepage": "https://github.com/lfvperes/jaguar-bot#readme",
   "dependencies": {
-    "twitter": "^1.7.1",
-    "twitter-lite": "^0.14.0"
+    "twitter": "^1.7.1"
   }
 }
