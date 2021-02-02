@@ -3,7 +3,7 @@ const Twitter = require('twitter');
 const fs = require('fs');
 
 const Bot = require('./Bot');
-const Crawler = require('./Crawler');
+const Scraper = require('./Scraper');
 
 const twt_keys = require('./config/twitter-api');
 const g_keys = require('./config/google-api');
@@ -16,11 +16,14 @@ const client = new Twitter({
 });
 
 const bot = new Bot(client);
-const crawler = new Crawler(g_keys);
+const scraper = new Scraper(g_keys);
 
 // loading image
 const img = fs.readFileSync('./data/img/image.jpg');
 
 // bot.tweet_game();
 // bot.tweet_media(img);
-crawler.get_images('jaguar');
+// scraper.search_images('jaguar');
+// scraper.download_from('https://dialogochino.net/wp-content/uploads/2020/07/jaguar-3370498_1920-1440x720.jpg');
+// scraper.get_images('./data/image_links.json');
+scraper.download_from();
