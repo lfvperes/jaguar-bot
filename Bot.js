@@ -47,7 +47,7 @@ class Bot {
      * @param {image} media_file - the image received to be posted.
      * @param {string} text - the text to be posted. If not given, will post default.
      */
-    tweet_media(media_file, text='Nothing to see here, just testing a new key (:') {
+    tweet_media(media_file, text='Nothing to see here, just testing a new key AGAIN >:(') {
         // post request to upload media with file as parameter
         this.client.post(
             'media/upload', 
