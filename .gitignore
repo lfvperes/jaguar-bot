@@ -7,3 +7,5 @@ config/*
 reference
 
 test.js
+
+*.jpg

@@ -4,7 +4,7 @@
 
 *the big cats, not the cars*
 
-![](https://img.shields.io/badge/Node.js-%2343853D.svg?&style=flat-square&logo=node.js&logoColor=white)
+[![](https://img.shields.io/badge/Node.js-%2343853D.svg?&style=flat-square&logo=node.js&logoColor=white)]()
 [![](https://img.shields.io/badge/Twitter-%231DA1F2.svg?&style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/BotJaguar)
 [![](https://img.shields.io/badge/GitKraken-%23179287.svg?&style=flat-square&logo=gitkraken&logoColor=white)](https://app.gitkraken.com/glo/board/YBhZjZOeNgARRwSK)
 

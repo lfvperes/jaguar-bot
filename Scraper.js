@@ -14,7 +14,7 @@ class Scraper {
      * @constructor
      * @param {.js file} config - the file containing the API keys.
      */
-    constructor(config) {
+    constructor(config, image_links) {
         // search parameters from the Custom Search Engine API
         this.key = config.key;
         this.cx = config.cx;
@@ -22,9 +22,10 @@ class Scraper {
         this.search_type = 'image';
         this.base_uri = ''; 
         this.num = 10;      // default count
-        this.start = 0;     // first result
+        this.start = 1;     // first result
         this.images = [];   // image URLs
 
+        this.get_images(image_links);
     }
 
     /**
@@ -132,9 +133,9 @@ class Scraper {
      * If an invalid argument is passed, returns.
      * @param {string} url - URL from which the image will be downloaded.
      */
-    download_from(url) {
+    download_from(url, img_name) {
         let chosen_url;
-
+        let img_id = '';    // different names for each image
         
         if (!url) {     // Checking if any parameter was passed (!undefined yields true)
             // in case the URLs file was not input into the images variable, do it
@@ -156,10 +157,16 @@ class Scraper {
             }
         }
 
+        // making each file name unique
+        if (!img_name) {
+            let time = new Date();
+            img_id = time.getTime();
+        } else img_id = img_name;
+        
         // parameters to the image downloader
         const options = {
             url: chosen_url,
-            dest: './data/img/image.jpg'
+            dest: `./data/img/image${img_id}.jpg`
         };
 
         // downloading image
