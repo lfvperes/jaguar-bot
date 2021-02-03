@@ -7,7 +7,8 @@ const fs = require('fs');
 // like and retweet 'jaguar', 'onça', 'yaguareté' etc
 
 /**
- * This class contains all functions pertinent to the bot actions.
+ * This class contains all functions pertinent to the bot actions
+ * on Twitter.
  */
 class Bot {
     /**
