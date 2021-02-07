@@ -10,7 +10,13 @@
 
 </div>
 
-This project consists in a Twitter Bot that searches for, stores and posts jaguar pictures. It is written in Node.JS and it is constantly being updated and improved.
+This project mainly consists in a Twitter Bot that searches for, stores and posts jaguar pictures. Written in Node.JS, it is constantly being updated and improved. The implementation brought along many features not proper to a Twitter Bot, making this project more than that.
+
+### Main features:
+- Twitter Bot
+- Web Scraper
+- Computer Vision Algorithms
+- Species Recognition Neural Network
 
 Albeit the project is far from completed, a release is intended to happen simply because the main basic bot features are ready and can be useful to other projects. It is a project of great importance for the author and, as such, needs to be showcased.
 
@@ -20,8 +26,10 @@ Albeit the project is far from completed, a release is intended to happen simply
 ### Node.JS libraries used:
 - Image Downloader
 - Node Twitter
+### Environments:
+This project was deployed on Heroku for testing and for learning purposes. It won't be deployed directly from GitHub anymore to avoid releasing API Keys.
 
-Technically, the bot *works* and its deployment was tested on Heroku. Nevertheless, as of now, the bot is not online and won't be until it can fully operate on its own.
+Technically, the bot *works* and its deployment was successfully tested. Nevertheless, as of now, the bot is not online and won't be until it can fully operate on its own.
 
 The progress can be tracked on [this GitKraken Board](https://app.gitkraken.com/glo/board/YBhZjZOeNgARRwSK).
 
