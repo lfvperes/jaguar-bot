@@ -7,7 +7,14 @@ const Scraper = require('./Scraper');
 
 const twt_keys = require('./config/twitter-api');
 const g_keys = require('./config/google-api');
-const image_links = './data/image_links.json';
+const bing_search_keys = require('./config/bing-search-api');
+const bing_cogn_keys = require('./config/bing-cognitive-api');
+
+const results = {
+    full: './data/full_results.json',
+    url: './data/url_results.json'
+};
+
 
 const client = new Twitter({
     consumer_key: twt_keys.consumer_key,
@@ -17,13 +24,9 @@ const client = new Twitter({
 });
 
 const bot = new Bot(client);
-const scraper = new Scraper(g_keys, image_links);
+const scraper = new Scraper(bing_search_keys, results);
+
 
 // bot.tweet_game();
 // bot.tweet_media(img);
-// scraper.search_images('jaguar');
-// scraper.download_from('https://dialogochino.net/wp-content/uploads/2020/07/jaguar-3370498_1920-1440x720.jpg');
-// scraper.get_images('./data/image_links.json');
-//scraper.download_from();
-
-scraper.search_images('cabeca de cavalo');
+// scraper.bing_img_search('jaguar',5,22);
