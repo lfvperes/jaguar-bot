@@ -62,7 +62,7 @@ class Scraper {
         // extracting and storing URLs in array
         img_results.value.forEach((r) => {url_list.push(r.webSearchUrl);});
         // writing full results in file
-        fs.writeFileSync('./data/full_results.json', body,
+        fs.writeFileSync(context.full_results, body,
          (err) => {
            console.log('Error: ' + err.message);
          });        
