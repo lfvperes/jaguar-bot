@@ -1,6 +1,7 @@
 'use strict';
 const https = require('https');
 const fs = require('fs');
+const imgDl = require('image-downloader');
 
 /**
  * This class is responsible for searching and saving images.
@@ -62,7 +63,7 @@ class Scraper {
         // extracting and storing URLs in array
         img_results.value.forEach((r) => {url_list.push(r.webSearchUrl);});
         // writing full results in file
-        fs.writeFileSync('./data/full_results.json', body,
+        fs.writeFileSync(context.full_results, body,
          (err) => {
            console.log('Error: ' + err.message);
          });        
@@ -175,6 +176,62 @@ class Scraper {
 
     } else console.log(`The file ${this.full_results} does not exist`);
     
+  }
+
+  /**
+   * Receives a URL to download an image.
+   * If no arguments are passed, one URL is randomly chosen from the list.
+   * If an invalid argument is passed, returns.
+   * @param {string} url - URL from which the image will be downloaded.
+   */
+  download_from_url(url, img_name) {
+    let chosen_url;
+    let img_id = '';    // different names for each image
+    
+    if (!url) {     // Checking if any parameter was passed (!undefined yields true)
+        // in case the URLs file was not input into the images variable, do it
+        if (!this.images.length) this.get_images('./data/image_links.json');
+
+        // defining a random number and saying which it is
+        let N = Math.floor(Math.random() * (this.images.length - 1));
+        console.log('Downloading from ' + this.images[N] + ', the element #' + (N + 1));
+
+        // assigning the random URL instead of a given argument
+        chosen_url = this.images[N];
+
+    } else {        // In case an argument was passed
+        if (typeof(url) === 'string') { // checking if it is a string
+            chosen_url = url;
+        } else {    // if it is not, then it is not a URL
+            console.log('Not a valid URL');
+            return;
+        }
+    }
+
+    // making each file name unique
+    if (!img_name) {
+        let time = new Date();
+        img_id = time.getTime();
+    } else img_id = img_name;
+    
+    // parameters to the image downloader
+    const options = {
+        url: chosen_url,
+        dest: `./data/dog/image${img_id}.jpg`
+    };
+
+    // downloading image
+    imgDl.image(options)
+        .then(({ filename }) => {
+        console.log('Saved to', filename)  // saved to /path/to/dest/photo
+        })
+        .catch((err) => console.error(err));
+  }
+
+  download_from_list(url_list) {
+    url_list.forEach((url) => {
+      this.download_from_url(url);
+    });
   }
 
 
