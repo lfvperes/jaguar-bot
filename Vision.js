@@ -9,8 +9,9 @@ const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
 class Vision {
   /**
    * @constructor
-   * @param {.js file} config - the file containing the API Keys
-   * @param {object} results - the object containing the paths for storing results
+   * @param {object} config - The exported file containing the API Keys.
+   * @param {string} results - The path for the file where the results
+   * will be stored.
    */
   constructor(config, results) {
 
@@ -19,7 +20,7 @@ class Vision {
     this.host = config.endpoint;       // base bing path
     this.path = '/vision/v3.1/analyze';// specifying type of search
     this.loc = config.location;
-    this.vis_feat = 'Tags';
+    this.vis_feat = 'Tags';           // default visual features
     this.lang = 'en';
 
     this.client = new ComputerVisionClient(
@@ -32,37 +33,104 @@ class Vision {
     this.full_results = results.full;
     this.url_results = results.url;
 
+    // keywords to analyze the tags
+    this.cat_keywords = [
+      'animal',
+      'mammal',
+      'carnivore',
+      'cat',
+      'felidae'
+    ];
+    this.car_keywords = [
+      'road',
+      'car',
+      'automotive',
+      'vehicle',
+      'supercar',
+      'street',
+      'highway'
+    ];
   }
 
   /**
    * Uses MS Cognitive Services Computer Vision API to analyze
    * the image in the provided URL and return metadata, including
    * tags and confidence, and other visual features.
-   * @param {*} name - description
-   * @param {*} name - description
-   * @param {*} name - description
+   * @param {string} URL - The URL of the image to be analyzed by the API.
+   * @param {boolean} show - Whether the tags should be printed on the
+   * console or not. Default is 'true'.
+   * @param {string} vis_feat - Visual Features: Attributes to be received
+   * back in the response body. Default is 'Tags', but other features can
+   * be passed as well.
    */
-  async analyze(vis_feat = this.vis_feat, URL, show) {
-
-    const tagsURL = 'https://www.jacadatravel.com/wp-content/uploads/2016/08/pantanal-jaguar-1024x576.jpg';
-    // Analyze URL image
+  async get_tags(URL, show=true, vis_feat = this.vis_feat) {
     console.log(`Analyzing image from the URL: ${URL}`);
-    const tags = (await this.client.analyzeImage(URL, { visualFeatures: [vis_feat] })).tags;
+    // Analyze URL image
+    const result = await this.client.analyzeImage(URL, { visualFeatures: [vis_feat] })
+    .catch((err) => { // handling errors
+      console.log(err.body.message);
+    });
+    // if the request was successful, an object will be received
+    if (result) {
+      // extract the tags from the object
+      var tags = result.tags;
+    } else {
+      // return nothing if there was an error
+      return;
+    }
     
+    // showing tags
     if (show) console.log(tags);
     
-    var jaguar;
-    tags.forEach((tag) => {
-      if (tag.name == 'jaguar') {
-        jaguar = tag;
-      } else if (!jaguar) {
-        jaguar = {confidence: 0};
-      }
-    });
-    console.log(`I'm ${(jaguar.confidence * 100).toFixed(1)}% sure this is a jaguar!`);
-    // tags.forEach((tag) => {console.log(tag.name)});
-    
+    return tags;
+  }
 
+  open_list(path) {
+    return JSON.parse(fs.readFileSync(path));
+  }
+
+  /**
+   * Receives an array of tags and determines a score based on the
+   * confidence of each tag, comparing their names with keywords.
+   * If the score is negative, the object in the picture is more
+   * likely a 'car' jaguar; if it's positive, a 'cat' jaguar.
+   * @param {Array} tags - Array containing objects with attributes
+   * 'name', 'confidence' and 'hint'.
+   */
+  analyze_tags(tags) {
+    var score = 0;
+    const answers = [
+      "Probably a big fluffy cat.",   // score > 0
+      "Meh just another stupid car.", // score < 0
+      "I don't know what this is."    // score == 0
+    ];
+    // check if an array of tags was received
+    if (tags) {
+      // compare each tag with all keywords
+      tags.forEach((tag) => {
+        this.cat_keywords.forEach(word => {
+          // increment the score positively with the confidence for the tag
+          score += tag.name.includes(word) ? tag.confidence : 0;
+        });
+        this.car_keywords.forEach(word => {
+          // increment the score negatively with the confidence for the tag
+          score += tag.name.includes(word) ? -1 * tag.confidence : 0;
+        });
+      });
+      console.log(`Score: ${score}`);
+      console.log(score > 0 ? answers[0] : score < 0 ? answers [1] : answers[2]);
+    } else {  // do nothing if there were no tags (due to some error)
+      console.log('There are no tags.');
+    }
+    console.log('-------------------------------');
+    return score;
+  }
+
+  filter(url_list) {
+    // iterate list
+    // get tags 
+    // analyze tags
+    // change from unfiltered to selected or rejected based on tags
   }
 }
 
