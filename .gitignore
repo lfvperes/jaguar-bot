@@ -9,3 +9,5 @@ reference
 test.js
 
 *.jpg
+
+*.env

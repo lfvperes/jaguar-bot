@@ -4,10 +4,9 @@ const fs = require('fs');
 const imgDl = require('image-downloader');
 
 /**
- * This class is responsible for searching and saving images.
- * That includes saving results from the Bing Image Search API,
- * saving the URLs provided and downloading the image files
- * from them.
+ * Performs image searchs, saves image URLs received as 
+ * results from the Bing Image Search API, downloads image 
+ * files from given URLs.
  */
 class Scraper {
   /**
@@ -28,14 +27,14 @@ class Scraper {
     // where to store results
     this.full_results = results.full;
     this.url_results = results.url;
+    this.url_list;
 
   }
   
   /**
-   * This function is responsible for handling and parsing
-   * responses, including how the search results will be 
-   * processed.
-   * @param {*} res - response from GET request on search
+   * Callback function that handles and parses the responses, 
+   * including how the search results will be processed.
+   * @param {object} res - response from GET request on search
    */
   res_handler = function (res, context) {
     // this variable will containg the body of the JSON response
@@ -66,7 +65,7 @@ class Scraper {
         fs.writeFileSync(context.full_results, body,
          (err) => {
            console.log('Error: ' + err.message);
-         });        
+         });
 
       } else console.log("No results");
 
@@ -156,6 +155,7 @@ class Scraper {
         });
         
         console.log(`Saving ${count_new} new URLs to the unfiltered list, from ${new_url_list.length} found`);
+        console.log('-------------------------------');
 
       } else {  // if the file doesn't exist, create it
         console.log(`The file ${this.url_results} does not exist`);
@@ -169,46 +169,49 @@ class Scraper {
         recursion = true;
       }
 
+      // storing in variable for external use
+      this.url_list = old_url_list;
       // writing URL list in file (empty if it doesn't exist, to create it)
       fs.writeFileSync(this.url_results, JSON.stringify(old_url_list));
       // if the file was created for the first time, call the function again
       if (recursion) this.update_url_list();
 
-    } else console.log(`The file ${this.full_results} does not exist`);
-    
+    } else {
+      console.log(`The file ${this.full_results} does not exist`);
+      console.log('-------------------------------');
+    }
   }
 
   /**
-   * Receives a URL to download an image.
-   * If no arguments are passed, one URL is randomly chosen from the list.
-   * If an invalid argument is passed, returns.
+   * Receives a URL to download an image and returns the path to where
+   * the file was saved.
+   * If an invalid argument is passed, breaks and returns nothing. That
+   * includes empty or no arguments.
    * @param {string} url - URL from which the image will be downloaded.
+   * @param {string} img_name - The path and name of the resulting file.
    */
-  download_from_url(url, img_name) {
+  async download_from_url(target_url, img_name) {
     let chosen_url;
     let img_id = '';    // different names for each image
     
-    if (!url) {     // Checking if any parameter was passed (!undefined yields true)
-        // in case the URLs file was not input into the images variable, do it
-        if (!this.images.length) this.get_images('./data/image_links.json');
-
-        // defining a random number and saying which it is
-        let N = Math.floor(Math.random() * (this.images.length - 1));
-        console.log('Downloading from ' + this.images[N] + ', the element #' + (N + 1));
-
-        // assigning the random URL instead of a given argument
-        chosen_url = this.images[N];
-
+    // Checking if any parameter was passed
+    if (!target_url) {     // No argument URL was passed
+      console.log('No URL received.');
+      console.log('-------------------------------');
+      return;
     } else {        // In case an argument was passed
-        if (typeof(url) === 'string') { // checking if it is a string
-            chosen_url = url;
+        // checking if it is a string
+        if (typeof(target_url) === 'string') {
+            // chosen_url = url;
+            console.log(`Downloading image from the URL: ${target_url}`);
         } else {    // if it is not, then it is not a URL
-            console.log('Not a valid URL');
+            console.log('Not a valid URL.');
+            console.log('-------------------------------');
             return;
         }
     }
 
-    // making each file name unique
+    // making each file name unique using date in ms
     if (!img_name) {
         let time = new Date();
         img_id = time.getTime();
@@ -216,24 +219,43 @@ class Scraper {
     
     // parameters to the image downloader
     const options = {
-        url: chosen_url,
-        dest: `./data/dog/image${img_id}.jpg`
+        url: target_url,
+        dest: `./data/img/image${img_id}.jpg`
     };
 
     // downloading image
-    imgDl.image(options)
+    var path = await imgDl.image(options)
         .then(({ filename }) => {
-        console.log('Saved to', filename)  // saved to /path/to/dest/photo
+          // saved to /path/to/dest/photo
+          console.log('Saved to', filename);
+          console.log('-------------------------------');
+          return filename;
         })
         .catch((err) => console.error(err));
+
+    // the path could be accessed from options.dest
+    // but this alternative will wait for the promise
+    return path;
   }
 
-  download_from_list(url_list) {
-    url_list.forEach((url) => {
-      this.download_from_url(url);
-    });
+  /**
+   * Receives an array of strings, which should be valid URLs, then
+   * iterates through the array and downloads the pictures from each
+   * one. Returns an array of strings containing the paths to where
+   * the files were saved.
+   * @param {Array} url_list - Array containing URLs from where the 
+   * images will be downloaded.
+   */
+  async download_from_list(url_list) {
+    var path_list = [];
+    console.log('Downloading from list of URLs.');
+    for (const url of url_list) {
+      console.log(`URL #${url_list.indexOf(url) + 1}:`);
+      path_list.push(await this.download_from_url(url));
+    }
+    console.log('-------------------------------');
+    return path_list;
   }
-
 
 }
 
