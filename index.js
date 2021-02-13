@@ -1,13 +1,12 @@
 const Twitter = require('twitter');
-// const { google } = require('googleapis');
 const fs = require('fs');
 
-const Bot = require('./Bot');
-const Scraper = require('./Scraper');
-const Vision = require('./Vision');
+const Bot = require('./classes/Bot');
+const Scraper = require('./classes/Scraper');
+const Vision = require('./classes/Vision');
+const Storage = require('./classes/Storage');
 
 const twt_keys = require('./config/twitter-api');
-// const g_keys = require('./config/google-api');
 const bing_search_keys = require('./config/bing-search-api');
 const cognitive_keys = require('./config/cognitive-api');
 
@@ -27,6 +26,9 @@ const client = new Twitter({
 const bot = new Bot(client);
 const scraper = new Scraper(bing_search_keys, results);
 const vision = new Vision(cognitive_keys, vis_res);
+const storage = new Storage();
+
+storage.put_blob('jaguar-container','data/foto.jpg');
 
 // bot.tweet_game();
 // bot.tweet_media(img);
