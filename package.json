@@ -23,7 +23,17 @@
   },
   "homepage": "https://github.com/lfvperes/jaguar-bot#readme",
   "dependencies": {
+    "@azure/cognitiveservices-computervision": "^7.1.0",
+    "@azure/ms-rest-azure-js": "^2.1.0",
+    "@azure/storage-blob": "^12.4.1",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.0.0",
+    "dotenv": "^8.2.0",
     "image-downloader": "^4.0.2",
+    "request": "^2.88.2",
     "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0"
   }
 }
