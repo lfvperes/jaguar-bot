@@ -102,7 +102,7 @@ class Storage {
   list_containers() {
     const time_UTC_str = new Date().toUTCString();
     const path = '/?comp=list';
-    const signature = this.create_signature('GET', time_UTC_str, path);
+    const signature = this.create_signature_txt('GET', time_UTC_str, path);
 
     const req_params = {
       method: 'GET',
@@ -289,7 +289,8 @@ class Storage {
   }
 }
 
-const storage = new Storage();
+module.exports = Storage;
+// const storage = new Storage();
 // storage.list_containers();
 // storage.get_container_props('jaguar-container');
-storage.put_blob('jaguar-container','foto.jpg');
+// storage.put_blob('jaguar-container','foto.jpg');
