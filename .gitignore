@@ -1,7 +1,7 @@
 node_modules
 
 full_results.json
-image_links.json
+url_results.json
 
 config/*
 reference

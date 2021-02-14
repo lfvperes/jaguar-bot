@@ -3,6 +3,8 @@ const https = require('https');
 const fs = require('fs');
 const imgDl = require('image-downloader');
 
+require('dotenv').config();
+
 /**
  * Performs image searchs, saves image URLs received as 
  * results from the Bing Image Search API, downloads image 
@@ -11,22 +13,20 @@ const imgDl = require('image-downloader');
 class Scraper {
   /**
    * @constructor
-   * @param {.js file} config - the file containing the API Keys
-   * @param {object} results - the object containing the paths for storing results
    */
-  constructor(config, results){
+  constructor(){
 
     // defining search parameters and keys
-    this.key = config.key1;           // subscription key
-    this.host = config.endpoint;      // base bing path
-    this.path = '/v7.0/images/search';// specifying type of search
-    this.query = 'tropical ocean';    // default search term
-    this.count = 10;                  // default results count per search
-    this.offset = 1;                  // default first result
+    this.key = process.env.BING_IMG_KEY;  // subscription key
+    this.host = 'api.bing.microsoft.com'; // base bing path
+    this.path = '/v7.0/images/search';    // specifying type of search
+    this.query = 'tropical ocean';        // default search term
+    this.count = 10;                      // default results count per search
+    this.offset = 1;                      // default first result
     
     // where to store results
-    this.full_results = results.full;
-    this.url_results = results.url;
+    this.full_results = './data/full_results.json';
+    this.url_results = './data/url_results.json';
     this.url_list;
 
   }
@@ -79,10 +79,11 @@ class Scraper {
   };
 
   /**
-   * Performs a search using the Bing Image Search API,
-   * given the search term, the amount of results and the
-   * starting results. If not given, all of them will set 
-   * to default.
+   * Performs a search using the Bing Image Search API, given the 
+   * search term, the amount of results and the starting results. 
+   * If not given, all of them will set to default. The response 
+   * handler writes the results in two JSON files, one for the full
+   * body of the response and other only for the list of URLs.
    * @param {string} search_term - word or phrase to be searched
    * @param {int} r_count - how many results will be returned
    * @param {int} start - first result

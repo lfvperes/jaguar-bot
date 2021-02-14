@@ -2,6 +2,9 @@
 const fs = require('fs');
 const ComputerVisionClient = require('@azure/cognitiveservices-computervision').ComputerVisionClient;
 const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
+
+require('dotenv').config();
+
 /**
  * Responsible for analyzing images using the
  * Microsoft Cognitive Services Computer Vision API.
@@ -9,29 +12,23 @@ const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
 class Vision {
   /**
    * @constructor
-   * @param {object} config - The exported file containing the API Keys.
-   * @param {string} results - The path for the file where the results
-   * will be stored.
    */
-  constructor(config, results) {
-
+  constructor() {
     // defining search parameters and keys
-    this.key = config.key1;            // subscription key
-    this.host = config.endpoint;       // base bing path
+    this.key = process.env.COGNITIVE_KEY;            // subscription key
+    this.host = process.env.COGNITIVE_ENDPOINT;       // base bing path
+    this.loc = process.env.COGNITIVE_LOCATION;
+
     this.path = '/vision/v3.1/analyze';// specifying type of search
-    this.loc = config.location;
     this.vis_feat = 'Tags';           // default visual features
     this.lang = 'en';
 
     this.client = new ComputerVisionClient(
       new ApiKeyCredentials({
         inHeader: { 'Ocp-Apim-Subscription-Key': this.key }
-      }), this.host
+      }), 
+      this.host
     );
-
-    // where to store results
-    this.full_results = results.full;
-    this.url_results = results.url;
 
     // keywords to analyze the tags
     this.cat_keywords = [
@@ -63,7 +60,7 @@ class Vision {
    * back in the response body. Default is 'Tags', but other features can
    * be passed as well.
    */
-  async get_tags(URL, show=true, vis_feat = this.vis_feat) {
+  async get_tags(URL, show=true, vis_feat=this.vis_feat) {
     console.log(`Analyzing image from the URL: ${URL}`);
     // Analyze URL image
     const result = await this.client.analyzeImage(URL, { visualFeatures: [vis_feat] })
@@ -135,3 +132,5 @@ class Vision {
 }
 
 module.exports = Vision;
+// const vision = new Vision();
+// vision.test_function();

@@ -1,6 +1,10 @@
 const fs = require('fs');
+const Twitter = require('./Twitter');
 const Scraper = require('./Scraper');
 const Vision = require('./Vision');
+const Storage = require('./Storage');
+
+require('dotenv').config();
 
 // tweet text
 // tweet image from local folder
@@ -18,11 +22,11 @@ class Bot {
      * @param {twitter object} client - client from node-twitter package
      * @param {*} name - ...
      */
-    constructor(client, scraper, vision, storage) {
-        this.client = client;
-        this.scraper = scraper;
-        this.vision = vision;
-        this.vision = storage;
+    constructor() {
+        this.twitter = new Twitter();
+        this.scraper = new Scraper();
+        this.vision = new Vision();
+        this.storage = new Storage();
         
         this.phrases = [
             "Probably a big fluffy cat. I'm still learning though. Did I get it right?",
@@ -30,72 +34,7 @@ class Bot {
             "I don't know what this is yet. I'm still learning though."
         ];
     }
-
-    /**
-     * Upon receiving a given text, posts it to twitter.
-     * @param {string} text - text to be posted.
-     */
-    tweet_this(text) {
-        console.log('ve se foi');
-        this.client.post(
-            "statuses/update", 
-            { status: text },
-            (err, twt, res) => {
-                if(err) {
-                    throw err;
-                } else 
-                console.log(`Response status: ${res.caseless.dict.status}`);
-                console.log(`Just tweeted: ${twt.text}`);
-            });
-    }
-
-    /** Generates a random number and post a text containing this number.
-     * Avoids duplicate tweets.
-     */
-    tweet_game() {
-        let r = Math.floor(Math.random() * 999);
-        this.tweet_this(`here is a random number and its meaning: ${r} means you lost the game (:`);
-    }
-
-    /**
-     * Receives an image and a text, makes a Post request to upload it, then makes
-     * a Post request to post it.
-     * @param {image} media_path - the image received to be posted.
-     * @param {string} text - the text to be posted. If not given, will post default.
-     */
-    tweet_media(media_path, text='Nothing to see here, just testing media uploads') {
-        const media_file = fs.readFileSync(media_path);
-        // post request to upload media with file as parameter
-        this.client.post(
-            'media/upload', 
-            { media: media_file },
-            (err, media, res) => {  // this callback takes media
-                if (!err) {
-                    // if successful, a media object will be returned.
-                    
-                    console.log(`Response status: ${res.caseless.dict.status}`);
-
-                    var status = {
-                        status: text,
-                        // media ID string identifies the media
-                        media_ids: media.media_id_string
-                    }
-                    
-                    // posting the status and the media
-                    this.client.post(
-                        'statuses/update',
-                        status, 
-                        (err, twt, res) => {   // this callback takes tweet
-                            if (!err) {
-                                console.log(`Response status: ${res.caseless.dict.status}`);
-                                
-                                console.log(twt.text);
-                            } else console.log(err);
-                        });
-                } else console.log(err);
-            });
-    }
-
+    
     /**
      * Receives a URL to a picture, analyzes the picture and tweet
      * about what it is: A jaguar (animal), a jaguar (car) or something
@@ -109,10 +48,9 @@ class Bot {
         const picture = this.scraper.download_from_url(url);
         picture.then(
             (filename) => {
-                this.tweet_media(filename, phrase);
+                this.twitter.tweet_media(filename, phrase);
             }
         );
-        
     }
 
     update_container() {
