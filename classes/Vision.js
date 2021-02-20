@@ -123,12 +123,6 @@ class Vision {
     return score;
   }
 
-  filter(url_list) {
-    // iterate list
-    // get tags 
-    // analyze tags
-    // change from unfiltered to selected or rejected based on tags
-  }
 }
 
 module.exports = Vision;
