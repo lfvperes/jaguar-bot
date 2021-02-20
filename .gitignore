@@ -2,6 +2,7 @@ node_modules
 
 full_results.json
 url_results.json
+xml_response.json
 
 config/*
 reference

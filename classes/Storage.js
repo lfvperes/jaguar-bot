@@ -2,10 +2,11 @@
 const http = require('https');
 const fs = require('fs');
 const CryptoJS = require('crypto-js');
+const xml2js = require('xml2js');
 require('dotenv').config();
 
 class Storage {
-  constructor() {
+  constructor(default_container) {
     // entering credentials
     this.account_name = process.env.ACCOUNT_NAME || "";
     this.account_key = process.env.ACCOUNT_KEY || "";
@@ -18,6 +19,10 @@ class Storage {
       image: "image/jpeg",
       text: "text/plain; charset=UTF-8"
     };
+
+    this.xml_response = './data/xml_response.json';
+    this.default_container = default_container;
+    this.dataset_size = 5;    // default amount of blobs
   }
 
   /**
@@ -35,10 +40,12 @@ class Storage {
     // removing first slash
     uri = uri.replace("/","");
     
-    // separating '/container/blob?q=query&q=query' into 'container/blob' and 'q=query&q=query'
-    var [path, query] = uri.split("?");
-    // changing 'q=query&q=query' to 'q:query\nq:query' if '?' is included
-    query = query ? query.replace(/\=/g,":").replace(/\&/g,"\n") : '';
+    // separating '/container/blob?q2=query&q1=query' into 'container/blob' and 'q2=query&q1=query'
+    var [path, queries] = uri.split("?");
+    // sorting queries lexicographically and adding "\n" into 'q1=query\nq2=query'
+    queries = queries ? queries.split("&").sort().join("\n") : '';
+    // changing 'q1=query\nq2=query' to 'q1:query\nq2:query' if '?' was included
+    queries = queries ? queries.replace(/\=/g,":") : '';
     // without the '?' char the separation is '/container/blob' and ''
     
     // const content_type = '';
@@ -50,7 +57,8 @@ class Storage {
       case 'GET':
         content_length = '';
         content_type = '';
-        resource += "\n" + query
+        // resource += "\n" + query;
+        resource += '\ncomp:list\nrestype:container';
         break;
       case 'PUT':
         headers = `x-ms-blob-type:BlockBlob` + "\n" + headers;
@@ -97,13 +105,13 @@ class Storage {
  * including how the search results will be processed.
  * @param {object} res - response from request
  */
-  res_handler = function (res) {
+  res_handler = function (res, context) {
 
     let body = '';
     // storing body
     res.on('data', (dat) => {
-      // body += dat;             // GET
-      process.stdout.write(dat);  // PUT, POST
+      body += dat;             // GET
+      // process.stdout.write(dat);  // PUT, POST
     });
 
     // when signaling 'end' flag
@@ -112,18 +120,28 @@ class Storage {
       if (!res.complete) {
         console.error('The connection was terminated while the message was still being sent');
       } else {
-        // console.log(res);
         console.log(`Status: ${res.statusCode} - ${res.statusMessage}`);
+        if (body) {
+          // parsing XML response into JSON format
+          xml2js.parseString(body, (err, result) => {
+            // saving result in a JSON file
+            fs.writeFileSync(context.xml_response, JSON.stringify(result), 
+              (err) => {
+                console.log('Error: ' + err.message);
+              });
+          });
+        }
       }
-      console.log('Response: ' + body);
+      if (res.statusCode != '200') console.log('Response: ' + body);
       
+      console.log('-------------------------------');
     });
 
     // handling errors
     res.on('error', (err) => {
       console.error(`Error ${err.statusCode}: ${err.statusMessage}`);
       console.error(err);
-      res.req.destroy();
+      // res.req.destroy();
     });
 
   };
@@ -157,7 +175,7 @@ class Storage {
    * @param {String} container_name - The name of the container whose metadata
    * will be retrieved.
    */
-  get_container_props(container_name='jaguar-container') {
+  get_container_props(container_name=this.default_container) {
     const time_UTC_str = new Date().toUTCString();
     const path = `/${container_name}?restype=container`;
     const signature = this.create_signature('GET', time_UTC_str, path);
@@ -182,7 +200,9 @@ class Storage {
    * @param {*} container_name 
    * @param {*} filename 
    */
-  put_blob(container_name='jaguar-container', filename, blob_name='exemplo.jpg') {
+  put_blob(container_name=this.default_container, filename, blob_name) {
+    // if no blob name is provided, will use the name of the file (without the folders and path)
+    if (!blob_name) blob_name = filename.split(/\/(?=\w+[.])/)[1];
     const time_UTC_str = new Date().toUTCString();
     var path = `/${container_name}/${blob_name}`;
 
@@ -213,7 +233,12 @@ class Storage {
     req.end();
   }
 
-  delete_blob(container_name='jaguar-container', blob_name='exemplo.jpg') {
+  /**
+   * Given the container name and blob name, deletes the blob.
+   * @param {String} container_name 
+   * @param {String} blob_name 
+   */
+  delete_blob(container_name=this.default_container, blob_name='exemplo.jpg') {
     const time_UTC_str = new Date().toUTCString();
     var path = `/${container_name}/${blob_name}`;
 
@@ -234,10 +259,60 @@ class Storage {
     let req = http.request(req_params, this.res_handler);
     req.end();
   }
+
+  async list_blobs(container_name=this.default_container) {
+    const time_UTC_str = new Date().toUTCString();
+    const path = `/${container_name}?restype=container&comp=list`;
+    const signature = this.create_signature('GET', time_UTC_str, path);
+
+    const req_params = {
+      method: 'GET',
+      hostname: this.hostname,
+      path: path,
+      headers: {
+        'Authorization': signature,
+        'x-ms-date': time_UTC_str,
+        'x-ms-version': this.version
+      }
+    }
+
+    
+    let req = http.request(req_params, (res) => {
+      // passing context to call functions inside callback
+      this.res_handler(res, this);
+    });
+    req.end();
+
+    // var blob_list = [];
+    
+    
+    // setTimeout(() => {
+    //   const blobs = JSON.parse(fs.readFileSync(this.xml_response));
+    //   const last_modified = new Date(blobs.EnumerationResults.Blobs[0].Blob[0].Properties[0]['Last-Modified']);
+    //   // time = last_modified;
+    // }, 500);
+   
+  }
+
+  list_blob_time() {
+    const full_response = JSON.parse(fs.readFileSync(this.xml_response));
+    const blob_list = full_response.EnumerationResults.Blobs[0].Blob;
+    const blobs = [];
+    if(blob_list) {
+      for (const blob of blob_list) {
+        // console.log(blob.Name[0]);
+        // console.log(blob.Properties[0]['Last-Modified'][0]);
+        blobs.push({
+          name: blob.Name[0],
+          date: new Date(blob.Properties[0]['Last-Modified'][0]),
+          size: (parseInt(blob.Properties[0]['Content-Length'][0])/1024).toFixed(1) // size in KB
+        });
+      }
+    } else {
+      console.log('There are no blobs.');
+    }
+    return blobs;
+  }
 }
 
 module.exports = Storage;
-// const storage = new Storage();
-// storage.list_containers();
-// storage.get_container_props('jaguar-container');
-// storage.put_blob('jaguar-container','foto.jpg');
