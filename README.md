@@ -15,7 +15,7 @@ This project mainly consists in a Twitter Bot that searches for, stores and post
 ### Main features:
 - Twitter Bot
 - Web Scraper
-- Computer Vision API
+- Computer Vision
 - Cloud Storage
 - Species Recognition Neural Network (TBD)
 
@@ -26,11 +26,11 @@ Albeit the project is far from completed, a release is intended to happen simply
 ### APIs used:
 - Twitter API
 - Bing Image Search JSON API
-- MS Cognitive Services Computer Vision API
 - Azure Storage Service REST API
 ### Node.JS libraries used:
 - Image Downloader
 - Node Twitter
+- MS Cognitive Services Computer Vision Client Library
 ### Environments:
 This project was deployed on Heroku for testing and for learning purposes. It won't be deployed directly from GitHub anymore to avoid releasing API Keys.
 
