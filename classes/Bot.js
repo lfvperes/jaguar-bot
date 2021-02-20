@@ -74,9 +74,9 @@ class Bot {
     setTimeout(async () => {
       // array with name, date and size
       blobs = this.storage.list_blob_time();
-      console.log(`There are ${blobs.length} blobs, the maximum is ${this.storage.dataset_size}`);
+      console.log(`There are ${blobs.length} blobs, the maximum is ${this.storage.dataset_size+1}`);
       // if there are enough blobs, one must be replaced
-      if (blobs.length > this.storage.dataset_size) {
+      if (blobs.length >= this.storage.dataset_size) {
         let oldest_blob = {
           date: new Date()
         };
@@ -102,6 +102,7 @@ class Bot {
         const filename = await this.scraper.download_from_url(url);
         // upload new blob
         this.storage.put_blob(this.storage.default_container, filename, blob_name);
+        this.twitter.tweet_media(filename);
       }
 
     }, 500);
