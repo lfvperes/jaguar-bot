@@ -63,9 +63,9 @@ class Scraper {
         img_results.value.forEach((r) => {url_list.push(r.webSearchUrl);});
         // writing full results in file
         fs.writeFileSync(context.full_results, body,
-         (err) => {
-           console.log('Error: ' + err.message);
-         });
+          (err) => {
+            console.log('Error: ' + err.message);
+          });
 
       } else console.log("No results");
 
@@ -114,13 +114,14 @@ class Scraper {
    * Takes the results in the JSON file, extracts URLs and save them.
    * To save the new URLs, the existing file is read for the new URLs
    * to be added to the array. The array is then saved again.
-   * If the file doesn't not exist it will be created.
+   * If the file doesn't not exist it will be created. 
+   * Must be called when a new search is performed.
    * @param {string} results - parsed JSON file body containing metadata about results
    */
   update_url_list() {
     // empty array to store URLs
     var new_url_list = [];
-    // call the function again after creating empty file for the first time
+    // to call the function again after creating empty file for the first time
     var recursion = false;
     // count how many new URLs were added
     let count_new = 0;
@@ -144,7 +145,8 @@ class Scraper {
         new_url_list.forEach((url) => { 
           if (  // avoid adding an URL that is already on the list
             !old_url_list.unfiltered.includes(url) &&
-            !old_url_list.selected.includes(url) &&
+            !old_url_list.selected.posted.includes(url) &&
+            !old_url_list.selected.not_posted.includes(url) &&
             !old_url_list.rejected.includes(url)
           ) {
             old_url_list.unfiltered.push(url);
@@ -163,7 +165,10 @@ class Scraper {
         console.log('Creating file (empty) now...');
         var old_url_list = {
           unfiltered: [],
-          selected: [],
+          selected: {
+            posted: [],
+            not_posted: []
+          },
           rejected: []
         };
 
@@ -184,6 +189,29 @@ class Scraper {
   }
 
   /**
+   * Updates the URL list changing the first URL from selected/not_posted to 
+   * selected/posted. Returns the URL.
+   */
+  url_to_post() {
+    // open and parse file into js object
+    var url_list = JSON.parse(fs.readFileSync(this.url_results));
+    // check if there are selected URLs to posted
+    if(url_list.selected.not_posted.length != 0) {
+      // remove the first element of not_posted
+      var url = url_list.selected.not_posted.shift();
+      // push that URL to the posted list
+      url_list.selected.posted.push(url);
+      // update the file with the new list
+      fs.writeFileSync(this.url_results, JSON.stringify(url_list));
+    } else {
+      console.log('There are no new URLs to be posted');
+      url = ''
+    }
+    
+    return url;
+  }
+
+  /**
    * Receives a URL to download an image and returns the path to where
    * the file was saved.
    * If an invalid argument is passed, breaks and returns nothing. That
@@ -192,7 +220,6 @@ class Scraper {
    * @param {string} img_name - The path and name of the resulting file.
    */
   async download_from_url(target_url, img_name) {
-    let chosen_url;
     let img_id = '';    // different names for each image
     
     // Checking if any parameter was passed
@@ -203,7 +230,7 @@ class Scraper {
     } else {        // In case an argument was passed
         // checking if it is a string
         if (typeof(target_url) === 'string') {
-            // chosen_url = url;
+            target_url = target_url.replace(/http:/, 'https:');
             console.log(`Downloading image from the URL: ${target_url}`);
         } else {    // if it is not, then it is not a URL
             console.log('Not a valid URL.');
@@ -232,7 +259,7 @@ class Scraper {
           console.log('-------------------------------');
           return filename;
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.log(err));
 
     // the path could be accessed from options.dest
     // but this alternative will wait for the promise
