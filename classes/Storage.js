@@ -56,6 +56,8 @@ class Storage {
         headers = `x-ms-blob-type:BlockBlob` + "\n" + headers;
         break;
       case 'DELETE':
+        content_length = '';
+        content_type = '';
         break;
       default:
         break;
@@ -205,8 +207,31 @@ class Storage {
       }
     }
 
+    console.log(`Uploading ${blob_name} to ${container_name}...`);
     let req = http.request(req_params, this.res_handler);
     req.write(obj);
+    req.end();
+  }
+
+  delete_blob(container_name='jaguar-container', blob_name='exemplo.jpg') {
+    const time_UTC_str = new Date().toUTCString();
+    var path = `/${container_name}/${blob_name}`;
+
+    const signature = this.create_signature('DELETE', time_UTC_str, path);
+
+    const req_params = {
+      method: 'DELETE',
+      hostname: this.hostname,
+      path: path,
+      headers: {
+        'Authorization': signature,
+        'x-ms-date': time_UTC_str,
+        'x-ms-version': this.version,
+      }
+    }
+
+    console.log(`Deleting ${blob_name} from container ${container_name}...`);
+    let req = http.request(req_params, this.res_handler);
     req.end();
   }
 }
