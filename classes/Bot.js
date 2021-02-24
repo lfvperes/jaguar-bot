@@ -54,19 +54,12 @@ class Bot {
   }
 
   /**
-   * Replaces the oldest blob with a new one (rotation), with the same name.
+   * Replaces the oldest image blob with a new one (rotation), with the same name.
+   * Also updates the JSON file containing the URL list.
    * @param {String} blob_name - The name of the blob to be replaced (and the
    * blob, which is the same name).
    */
   async update_blob(blob_name = '') {
-    // get url from list under 'selected'
-    // download image
-    // upload image as blob to container
-    // delete oldest blob in the container (replaced by upload)
-
-    // const filename = './data/img/foto.jpg';
-    // this.storage.put_blob('jaguar-container', filename, blob_name);
-
     // GET method to list blobs, creating file with the response
     this.storage.list_blobs();
     var blobs;
@@ -94,26 +87,37 @@ class Bot {
         var blob_name = `image${blobs.length}.jpg`;
       }
 
-      // update list (posted/not_posted)
+      // update list (posted/not_posted) and get the url for the new post
       var url = this.scraper.url_to_post();
+      // updating list blob in the cloud
+      this.storage.put_blob('urllist', this.scraper.url_results);
       // will not try to post if there are no URLs to post
-      if(url) {
-        // download image locally
-        const filename = await this.scraper.download_from_url(url);
-        // upload new blob
-        this.storage.put_blob(this.storage.default_container, filename, blob_name);
-        this.twitter.tweet_media(filename);
-      }
-
-    }, 500);
-    
-
+      setTimeout(async () => {
+        if(url) {
+          // download image locally and get path
+          const filename = await this.scraper.download_from_url(url);
+          // wait for the file to be downloaded
+          setTimeout(() => {
+            // resize image when needed
+            if(fs.statSync(filename)["size"] > 5 * 2 ** 20) {
+              this.scraper.resize_img(filename);
+            }
+            // upload new image
+            this.storage.put_blob(this.storage.default_container, filename, blob_name);
+            this.twitter.tweet_media(filename, 'big fluffy cat');
+            // delete file locally
+            fs.unlinkSync(filename);
+          }, 1000);
+        }
+      }, 1000);
+    }, 1500);
   }
 
   /**
    * Takes URLs from the list under "unfiltered", passes it through the CV 
    * API, get and analyze tags, and finally place the URLs under "unfiltered", 
-   * "selected, not_posted" or "rejected".
+   * "selected/not_posted" or "rejected". Also updates the JSON file containing 
+   * the URL list.
    * @param {int} N - The number of URLs to be filtered.
    */
   async filter_url(N = 5) {
@@ -164,6 +168,8 @@ class Bot {
       console.log(new_url_list);
       // updating list in the file
       fs.writeFileSync(url_list_filename, JSON.stringify(new_url_list));
+      // updating list blob in the cloud
+      this.storage.put_blob('urllist', this.scraper.url_results);
 
     } else {
       console.log(`The file ${url_list_filename} does not exist.`);
