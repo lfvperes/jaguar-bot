@@ -232,7 +232,7 @@ class Scraper {
         // checking if it is a string
         if (typeof(target_url) === 'string') {
             target_url = target_url.replace(/http:/, 'https:');
-            console.log(`Downloading image from the URL: ${target_url}`);
+            console.log(`Downloading image from the URL: ${target_url}...`);
         } else {    // if it is not, then it is not a URL
             console.log('Not a valid URL.');
             console.log('-------------------------------');
@@ -295,6 +295,7 @@ class Scraper {
    * is, 3^2 times bigger).
    */
   resize_img(filename, factor=1) {
+    console.log('Resizing image...');
     const image = sharp(fs.readFileSync(filename));
 
     // metadata is used to resize based on the original width and height

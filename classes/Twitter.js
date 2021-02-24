@@ -72,6 +72,8 @@ class Twitter {
      * @param {string} text - the text to be posted. If not given, will post default.
      */
     tweet_media(media_path, text='Nothing to see here, just testing media uploads') {
+        // checking file size
+        const file_size = fs.statSync(media_path)["size"] / 2 ** 10;
         const media_file = fs.readFileSync(media_path);
         // post request to upload media with file as parameter
         this.client.post(
@@ -81,7 +83,7 @@ class Twitter {
                 if (!err) {
                     // if successful, a media object will be returned.
                     
-                    console.log(`Response status: ${res.caseless.dict.status}`);
+                    console.log(`Media upload response status: ${res.caseless.dict.status}`);
 
                     var status = {
                         status: text,
@@ -95,13 +97,19 @@ class Twitter {
                         status, 
                         (err, twt, res) => {   // this callback takes tweet
                             if (!err) {
-                                console.log(`Response status: ${res.caseless.dict.status}`);
+                                console.log(`New tweet response status: ${res.caseless.dict.status}`);
                                 
                                 console.log(twt.text);
                             } else console.log(err);
                         });
                 } else console.log(err);
             });
+    }
+
+    confirm_image() {
+        // (1 day) before posting the image, it will be sent as DM to me
+        // i will reply yes/no to confirm if the image will be posted
+        // if i don't reply it will be posted
     }
 }
 

@@ -99,6 +99,7 @@ class Storage {
       resource;
 
     console.log(strToSign);
+    console.log('-------------------------------');
 
     // generating secret from account key
     var secret = CryptoJS.enc.Base64.parse(this.account_key);
@@ -206,11 +207,12 @@ class Storage {
   }
 
   /**
-   * 
-   * @param {*} container_name 
-   * @param {*} filename 
+   * Uploads a blob with the given name, to the container with the given name.
+   * @param {String} container_name - Name of the container to which the new
+   * blob will be uploaded. If none is given, uses the default name.
+   * @param {String} filename - Name of the new blob to be uploaded.
    */
-  put_blob(container_name=this.default_container, filename, blob_name) {
+  put_blob(container_name=this.default_container, filename, blob_name='') {
     // if no blob name is provided, will use the name of the file (without the folders and path)
     if (!blob_name) blob_name = filename.split(/\/(?=\w+[.])/)[1];
     const time_UTC_str = new Date().toUTCString();
@@ -287,21 +289,12 @@ class Storage {
     }
 
     
+    console.log(`Listing all blobs in ${container_name}...`);
     let req = http.request(req_params, (res) => {
       // passing context to call functions inside callback
       this.res_handler(res, this);
     });
-    req.end();
-
-    // var blob_list = [];
-    
-    
-    // setTimeout(() => {
-    //   const blobs = JSON.parse(fs.readFileSync(this.xml_response));
-    //   const last_modified = new Date(blobs.EnumerationResults.Blobs[0].Blob[0].Properties[0]['Last-Modified']);
-    //   // time = last_modified;
-    // }, 500);
-   
+    req.end();   
   }
 
   list_blob_time() {
@@ -345,6 +338,8 @@ class Storage {
       }
     }
 
+    
+    console.log(`Creating the container ${container_name}...`);
     let req = http.request(req_params, this.res_handler);
     req.end();
   }
@@ -370,6 +365,7 @@ class Storage {
       }
     }
 
+    console.log(`Deleting the container ${container_name}...`);
     let req = http.request(req_params, this.res_handler);
     req.end();
   }
