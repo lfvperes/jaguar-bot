@@ -32,12 +32,9 @@ class Twitter {
             access_token_key: this.access_token_key,
             access_token_secret: this.access_token_secret
         });
-
-        this.phrases = [
-            "Probably a big fluffy cat. I'm still learning though. Did I get it right?",
-            "Mehhhh just another stupid car. I'm still learning though. Did I get it right?",
-            "I don't know what this is yet. I'm still learning though."
-        ];
+        
+        // content to be randomly chosen and posted with the pictures
+        this.phrases = JSON.parse(fs.readFileSync('./data/tweet_content.json')).phrases;
     }
 
     /**
@@ -67,13 +64,17 @@ class Twitter {
 
     /**
      * Receives an image and a text, makes a Post request to upload it, then makes
-     * a Post request to post it.
+     * a Post request to post it. If no text was received, chooses randomly from the
+     * default list.
      * @param {image} media_path - the image received to be posted.
      * @param {string} text - the text to be posted. If not given, will post default.
      */
-    tweet_media(media_path, text='Nothing to see here, just testing media uploads') {
+    tweet_media(media_path, text='') {
+        if(!text) {
+            // if not specified, choose randomly from the default list
+            text = this.phrases[Math.floor(Math.random() * this.phrases.length)];
+        }
         // checking file size
-        const file_size = fs.statSync(media_path)["size"] / 2 ** 10;
         const media_file = fs.readFileSync(media_path);
         // post request to upload media with file as parameter
         this.client.post(

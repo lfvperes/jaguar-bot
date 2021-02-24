@@ -6,7 +6,7 @@ const xml2js = require('xml2js');
 require('dotenv').config();
 
 class Storage {
-  constructor(default_container) {
+  constructor(default_container='jaguar-container') {
     // entering credentials
     this.account_name = process.env.ACCOUNT_NAME || "";
     this.account_key = process.env.ACCOUNT_KEY || "";

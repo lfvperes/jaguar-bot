@@ -19,20 +19,21 @@ require('dotenv').config();
 class Bot {
   /**
    * @constructor
-   * @param {twitter object} client - client from node-twitter package
-   * @param {*} name - ...
    */
   constructor() {
     this.twitter = new Twitter();
     this.scraper = new Scraper();
     this.vision = new Vision();
-    this.storage = new Storage('jaguar-container');
+    this.storage = new Storage();
 
-    this.phrases = [
+    this.phrases = [                      // phrases to be posted in tweet_learned()
       "Probably a big fluffy cat. I'm still learning though. Did I get it right?",
       "Mehhhh just another stupid car. I'm still learning though. Did I get it right?",
       "I don't know what this is yet. I'm still learning though."
     ];
+
+    // default weekday when weekly routine will be executed (weekdays 0-6)
+    this.default_weekday_rountine = 1;    // monday
   }
 
   /**
@@ -59,7 +60,7 @@ class Bot {
    * @param {String} blob_name - The name of the blob to be replaced (and the
    * blob, which is the same name).
    */
-  async update_blob(blob_name = '') {
+  async new_post(blob_name = '') {
     // GET method to list blobs, creating file with the response
     this.storage.list_blobs();
     var blobs;
@@ -104,7 +105,7 @@ class Bot {
             }
             // upload new image
             this.storage.put_blob(this.storage.default_container, filename, blob_name);
-            this.twitter.tweet_media(filename, 'big fluffy cat');
+            this.twitter.tweet_media(filename);
             // delete file locally
             fs.unlinkSync(filename);
           }, 1000);
@@ -120,7 +121,7 @@ class Bot {
    * the URL list.
    * @param {int} N - The number of URLs to be filtered.
    */
-  async filter_url(N = 5) {
+  async filter_url(N=7) {
     console.log(`Filtering ${N} images...`);
     console.log('-------------------------------');
     const url_list_filename = this.scraper.url_results;
@@ -165,15 +166,48 @@ class Bot {
         rejected: rejected
       };
 
-      console.log(new_url_list);
-      // updating list in the file
+      // console.log(new_url_list);
+
+      // updating list locally
       fs.writeFileSync(url_list_filename, JSON.stringify(new_url_list));
-      // updating list blob in the cloud
-      this.storage.put_blob('urllist', this.scraper.url_results);
 
     } else {
       console.log(`The file ${url_list_filename} does not exist.`);
     }
+  }
+  
+  /**
+   * Default daily routine, to be executed twice a day. Makes a new post, tracks 
+   * the day of the week to execute weekly routine. 
+   */
+  async daily_routine() {
+    // making new post
+    await this.new_post();
+    // waiting for new post to be completed and all files updated
+    setTimeout(() => {
+      // executing weekly routine when it's the defined day (weekdays 0-6)
+      if (new Date().getDay() === this.default_weekday_rountine) this.weekly_routine();
+    }, 5000);
+
+  }
+
+  /**
+   * 
+   */
+  async weekly_routine() {
+    // change search offset based on current week
+    const today = new Date();
+    const week = Math.ceil((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24 * 7));
+    // search and update list (locally)
+    this.scraper.bing_img_search(undefined, undefined, week);
+    // filter URLs and update list (locally)
+    await this.filter_url();
+    // wait for local files to be updated
+    setTimeout(() => {
+      // updating list blob in the cloud
+      this.storage.put_blob('urllist', this.scraper.url_results);
+    }, 3000);
+    
   }
 
   logs_dm() {
