@@ -21,10 +21,9 @@ class Scraper {
     this.key = process.env.BING_IMG_KEY;  // subscription key
     this.host = 'api.bing.microsoft.com'; // base bing path
     this.path = '/v7.0/images/search';    // specifying type of search
+    this.query = 'tropical ocean';        // default search term
     this.count = 10;                      // default results count per search
     this.offset = 1;                      // default first result
-    // default search terms
-    this.terms = JSON.parse(fs.readFileSync('./data/search_terms.json')).terms;
     
     // where to store results
     this.full_results = './data/full_results.json';
@@ -90,12 +89,8 @@ class Scraper {
    * @param {int} r_count - how many results will be returned
    * @param {int} start - first result
    */
-  bing_img_search(search_term='', r_count=this.count, start=this.offset) {
-    if(!search_term) {
-      // if not specified, choose randomly from the default list
-      search_term = this.terms[Math.floor(Math.random() * this.terms.length)];
-    }
-    console.log(`Searching for ${r_count} ${search_term} images, starting from #${start}...`);
+  bing_img_search(search_term=this.query, r_count=this.count, start=this.offset) {
+    console.log(`Searching for ${r_count} ${search_term} images...`);
 
     // constructing search request and query
     const req_params = {
@@ -117,7 +112,7 @@ class Scraper {
   }
 
   /**
-   * Takes the full results in the JSON file, extracts URLs and save them.
+   * Takes the results in the JSON file, extracts URLs and save them.
    * To save the new URLs, the existing file is read for the new URLs
    * to be added to the array. The array is then saved again.
    * If the file doesn't not exist it will be created. 
