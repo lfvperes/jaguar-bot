@@ -33,8 +33,10 @@ class Storage {
    * container and the query parameters.
    * @param {Object} content - ...
    * @param {String} content_type - ...
+   * @param {boolean} blob - To check if the method will handle blobs 
+   * (true) or containers (false)
    */
-  create_signature(VERB, strTime, uri, content='', content_type='') {
+  create_signature(VERB, strTime, uri, content='', content_type='', blob=true) {
     VERB = VERB.toUpperCase();
 
     // removing first slash
@@ -57,15 +59,23 @@ class Storage {
       case 'GET':
         content_length = '';
         content_type = '';
-        // resource += "\n" + query;
-        resource += '\ncomp:list\nrestype:container';
+        // resource += '\ncomp:list\nrestype:container';
+        resource += '\n' + queries;
         break;
       case 'PUT':
-        headers = `x-ms-blob-type:BlockBlob` + "\n" + headers;
+        if (blob) {
+          headers = `x-ms-blob-type:BlockBlob` + "\n" + headers;
+        } else {
+          resource += "\n" + queries;
+        }
         break;
       case 'DELETE':
-        content_length = '';
-        content_type = '';
+        if (blob) {
+          content_length = '';
+          content_type = '';
+        } else {
+          resource += "\n" + queries;
+        }
         break;
       default:
         break;
@@ -312,6 +322,56 @@ class Storage {
       console.log('There are no blobs.');
     }
     return blobs;
+  }
+
+  /**
+   * Creates a new container with the given name.
+   * @param {String} container_name - Name of the new container to be created.
+   */
+  create_container(container_name) {
+    const time_UTC_str = new Date().toUTCString();
+    var path = `/${container_name}?restype=container`;
+
+    const signature = this.create_signature('PUT', time_UTC_str, path, '', '', false);
+
+    const req_params = {
+      method: 'PUT',
+      hostname: this.hostname,
+      path: path,
+      headers: {
+        'Authorization': signature,
+        'x-ms-date': time_UTC_str,
+        'x-ms-version': this.version
+      }
+    }
+
+    let req = http.request(req_params, this.res_handler);
+    req.end();
+  }
+
+  /**
+   * Deletes a container with the given name.
+   * @param {String} container_name - Name of the container to be deleted.
+   */
+  delete_container(container_name) {
+    const time_UTC_str = new Date().toUTCString();
+    var path = `/${container_name}?restype=container`;
+
+    const signature = this.create_signature('DELETE', time_UTC_str, path, '', '', false);
+
+    const req_params = {
+      method: 'DELETE',
+      hostname: this.hostname,
+      path: path,
+      headers: {
+        'Authorization': signature,
+        'x-ms-date': time_UTC_str,
+        'x-ms-version': this.version,
+      }
+    }
+
+    let req = http.request(req_params, this.res_handler);
+    req.end();
   }
 }
 
