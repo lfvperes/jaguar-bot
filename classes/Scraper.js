@@ -2,6 +2,7 @@
 const https = require('https');
 const fs = require('fs');
 const imgDl = require('image-downloader');
+const sharp = require('sharp');
 
 require('dotenv').config();
 
@@ -283,6 +284,31 @@ class Scraper {
     }
     console.log('-------------------------------');
     return path_list;
+  }
+
+  /**
+   * Resizes the given image by a given factor.
+   * @param {String} filename - path to the file to be resized, such as
+   * './folder/name.format' or 'folder/name.format'.
+   * @param {int} factor - resizing factor. A factor 3 will return an image
+   * with triple the width and height, making the area 9 times bigger (that
+   * is, 3^2 times bigger).
+   */
+  resize_img(filename, factor=1) {
+    const image = sharp(fs.readFileSync(filename));
+
+    // metadata is used to resize based on the original width and height
+    image
+    .metadata()
+    .then((metadata) => {
+      return image
+        .resize(Math.round(metadata.width / factor))
+        .webp()
+        .toBuffer();
+    })
+    .then((data) => {
+      fs.writeFileSync(filename, data);
+    });
   }
 
 }
