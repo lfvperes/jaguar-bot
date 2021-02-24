@@ -6,12 +6,6 @@ const Storage = require('./Storage');
 
 require('dotenv').config();
 
-// tweet text
-// tweet image from local folder
-// tweet image from cloud
-// reply with links for helping the NGOs
-// like and retweet 'jaguar', 'onça', 'yaguareté' etc
-
 /**
  * This class contains all functions pertinent to the bot actions
  * on Twitter.
@@ -90,8 +84,6 @@ class Bot {
 
       // update list (posted/not_posted) and get the url for the new post
       var url = this.scraper.url_to_post();
-      // updating list blob in the cloud
-      this.storage.put_blob('urllist', this.scraper.url_results);
       // will not try to post if there are no URLs to post
       setTimeout(async () => {
         if(url) {
@@ -106,8 +98,12 @@ class Bot {
             // upload new image
             this.storage.put_blob(this.storage.default_container, filename, blob_name);
             this.twitter.tweet_media(filename);
-            // delete file locally
-            fs.unlinkSync(filename);
+            setTimeout(() => {
+              // delete file locally
+              fs.unlinkSync(filename);
+            }, 1000);
+            // updating list blob in the cloud
+            this.storage.put_blob('urllist', this.scraper.url_results);
           }, 1000);
         }
       }, 1000);
@@ -187,7 +183,7 @@ class Bot {
     setTimeout(() => {
       // executing weekly routine when it's the defined day (weekdays 0-6)
       if (new Date().getDay() === this.default_weekday_rountine) this.weekly_routine();
-    }, 5000);
+    }, 10000);
 
   }
 
@@ -206,7 +202,7 @@ class Bot {
     setTimeout(() => {
       // updating list blob in the cloud
       this.storage.put_blob('urllist', this.scraper.url_results);
-    }, 3000);
+    }, 10000);
     
   }
 
