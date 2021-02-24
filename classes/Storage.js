@@ -60,7 +60,7 @@ class Storage {
         content_length = '';
         content_type = '';
         // resource += '\ncomp:list\nrestype:container';
-        resource += '\n' + queries;
+        if(queries) resource += '\n' + queries;
         break;
       case 'PUT':
         if (blob) {
@@ -269,6 +269,63 @@ class Storage {
 
     console.log(`Deleting ${blob_name} from container ${container_name}...`);
     let req = http.request(req_params, this.res_handler);
+    req.end();
+  }
+
+  get_blob(container_name=this.default_container, blob_name, filename) {
+    const time_UTC_str = new Date().toUTCString();
+    var path = `/${container_name}/${blob_name}`;
+
+    const signature = this.create_signature('GET', time_UTC_str, path);
+
+    const req_params = {
+      method: 'GET',
+      hostname: this.hostname,
+      path: path,
+      headers: {
+        'Authorization': signature,
+        'x-ms-date': time_UTC_str,
+        'x-ms-version': this.version,
+      }
+    }
+
+    console.log(`Downloading ${blob_name} from container ${container_name}...`);
+    let req = http.request(req_params, (res) => {
+      
+      let body = '';
+      // storing body
+      res.on('data', (dat) => {
+        body += dat;             // GET
+        // process.stdout.write(dat);  // PUT, POST
+      });
+
+      // when signaling 'end' flag
+      res.on('end', () => {
+        // parsing response
+        if (!res.complete) {
+          console.error('The connection was terminated while the message was still being sent');
+        } else {
+          console.log(`Status: ${res.statusCode} - ${res.statusMessage}`);
+          if (body) {
+            if(!filename) filename = blob_name;
+            fs.writeFileSync(filename, body, 
+              (err) => {
+                console.log('Error: ' + err.message);
+              });
+          }
+        }
+        
+        if (res.statusCode != '200') console.log('Response: ' + body);
+        
+        console.log('-------------------------------');
+      });
+
+      // handling errors
+      res.on('error', (err) => {
+        console.error(`Error ${err.statusCode}: ${err.statusMessage}`);
+        console.error(err);
+      });
+    });
     req.end();
   }
 
