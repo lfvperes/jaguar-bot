@@ -22,7 +22,7 @@ class Storage {
 
     this.xml_response = './data/xml_response.json';
     this.default_container = default_container;
-    this.dataset_size = 5;    // default amount of blobs
+    this.dataset_size = 30;    // default amount of blobs
   }
 
   /**
