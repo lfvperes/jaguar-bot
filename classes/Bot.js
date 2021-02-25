@@ -56,7 +56,7 @@ class Bot {
    * @param {String} blob_name - The name of the blob to be replaced (and the
    * blob, which is the same name).
    */
-  async new_post(blob_name = '') {
+  async new_post(weekday) {
     // GET method to list blobs, creating file with the response
     this.storage.list_blobs();
     var blobs;
@@ -99,7 +99,7 @@ class Bot {
             }
             // upload new image
             this.storage.put_blob(this.storage.default_container, filename, blob_name);
-            this.twitter.tweet_media(filename);
+            this.twitter.tweet_media(filename, undefined, weekday);
             setTimeout(() => {
               // delete file locally
               fs.unlinkSync(filename);
@@ -179,12 +179,17 @@ class Bot {
    * the day of the week to execute weekly routine. 
    */
   async daily_routine() {
+    const today = new Date();
+    const weekday = today.getDay();
+    // change search offset based on current week
+    const week = Math.ceil((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24 * 7));
+
     // making new post
     await this.new_post();
     // waiting for new post to be completed and all files updated
     setTimeout(() => {
       // executing weekly routine when it's the defined day (weekdays 0-6)
-      if (new Date().getDay() === this.default_weekday_rountine) this.weekly_routine();
+      if (weekday === this.default_weekday_rountine) this.weekly_routine(week);
     }, 10000);
 
   }
@@ -192,14 +197,11 @@ class Bot {
   /**
    * 
    */
-  async weekly_routine() {
-    // change search offset based on current week
-    const today = new Date();
-    const week = Math.ceil((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24 * 7));
+  async weekly_routine(week) {
     // search and update list (locally)
     this.scraper.bing_img_search(undefined, undefined, week);
     // filter URLs and update list (locally)
-    await this.filter_url();
+    await this.filter_url(7);
     // wait for local files to be updated
     setTimeout(() => {
       // updating list blob in the cloud
