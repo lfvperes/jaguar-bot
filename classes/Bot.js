@@ -185,7 +185,7 @@ class Bot {
     const week = Math.ceil((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24 * 7));
 
     // making new post
-    await this.new_post();
+    await this.new_post(weekday);
     // waiting for new post to be completed and all files updated
     setTimeout(() => {
       // executing weekly routine when it's the defined day (weekdays 0-6)
@@ -199,7 +199,7 @@ class Bot {
    */
   async weekly_routine(week) {
     // search and update list (locally)
-    this.scraper.bing_img_search(undefined, undefined, week);
+    this.scraper.bing_img_search(undefined, 7, week * 7);
     // filter URLs and update list (locally)
     await this.filter_url(7);
     // wait for local files to be updated
