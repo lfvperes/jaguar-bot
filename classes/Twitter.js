@@ -80,8 +80,8 @@ class Twitter {
             text = this.phrases[Math.floor(Math.random() * this.phrases.length)];
         }
         if(hashtag_index){
-            // adding hashtag to the end to the text
-            text += ' #' + this.hashtags[hashtag_index];
+            // adding hashtag to the end to the text, if not empty
+            text += this.hashtags[hashtag_index] ? ' #' + this.hashtags[hashtag_index] : '';
         }
         // checking file size
         const media_file = fs.readFileSync(media_path);
