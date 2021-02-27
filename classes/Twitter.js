@@ -147,10 +147,11 @@ class Twitter {
      * @param {String} terms - The word or phrase to be searched.
      * @param {int} count - The number of tweets to be returned.
      */
-    async search_tweets(terms='', count=15) {
+    async search_tweets(terms, count=15) {
         // if no search term was provided, will choose randomly from the list
         if(!terms) {
-            terms = this.search_terms[Math.floor(Math.random() * this.search_terms.length)];
+            const R = Math.floor(Math.random() * this.search_terms.length);
+            terms = this.search_terms[R];
         }
         console.log(`Searching for ${count} tweets about ${terms}...`);
         var tweets = [];
