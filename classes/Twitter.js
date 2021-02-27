@@ -116,6 +116,77 @@ class Twitter {
             });
     }
 
+    /**
+     * Opens a stream to listen to tweets that include the given term in
+     * its status text.
+     * @param {String} terms - Word or phrase to be searched.
+     */
+    stream_statues(terms) {
+        var stream = this.client.stream('statuses/filter', {track: terms});
+        var count = 0;
+        stream.on('data', (event) => {
+            if(count < 5) {
+                this.like_tweet(event && event.id_str);
+                // console.log('Liking this tweet:');
+                console.log(event && event.text);
+                count++;
+            }
+        });
+
+        stream.on('error', (err) => {
+            throw err;
+        });
+    }
+
+    /**
+     * Performs a twitter search based on given term. Results may include accounts
+     * whose name includes the search term, beside tweets whose statuses include 
+     * the search term.
+     * @param {String} terms - The word or phrase to be searched.
+     * @param {int} count - The number of tweets to be returned.
+     */
+    async search_tweets(terms, count=15) {
+        console.log(`Searching for ${count} tweets about ${terms}...`);
+        var tweets = [];
+        this.client.get('search/tweets', {q: terms, count: count}, (err, twt, res) => {
+            for (const status of twt.statuses) {
+                // array containing only texts
+                let texts = tweets.map((tweet) => { return tweet.text; });
+                // avoid duplicates
+                if(!texts.includes(status.text)) {
+                    // array of objects containing text and id_str
+                    tweets.push({id_str: status.id_str, text: status.text});
+                }
+            }
+            
+            console.log(`Found ${tweets.length} unique tweets`);
+            console.log('-------------------------------');
+        });
+        return tweets;
+    }
+
+    async like_tweet(twt_id, text='') {
+        this.client.post('favorites/create', {id: twt_id}, (err) => {
+            if(text) {
+                console.log(`Liking this tweet:`);
+                console.log(`ID ${twt_id}`);
+                console.log(`Text ${text}`);
+            } else {
+                console.log(`Liking the tweet with ID ${twt_id}`);
+            }
+            if(err) {
+                if(err[0].code != 139) {
+                    throw err;
+                } else {
+                    console.log(err[0].message);
+                }
+            } else {
+                console.log('Liked!');
+            }
+            console.log('-------------------------------');
+        });
+    }
+
     confirm_image() {
         // (1 day) before posting the image, it will be sent as DM to me
         // i will reply yes/no to confirm if the image will be posted
