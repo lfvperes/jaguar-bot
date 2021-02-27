@@ -53,8 +53,7 @@ class Bot {
   /**
    * Replaces the oldest image blob with a new one (rotation), with the same name.
    * Also updates the JSON file containing the URL list.
-   * @param {String} blob_name - The name of the blob to be replaced (and the
-   * blob, which is the same name).
+   * @param {String} weekday - The name of the current day.
    */
   async new_post(weekday) {
     // GET method to list blobs, creating file with the response
@@ -175,7 +174,7 @@ class Bot {
   }
   
   /**
-   * Default daily routine, to be executed twice a day. Makes a new post, tracks 
+   * Default daily routine, to be executed 4 times a day. Makes a new post, tracks 
    * the day of the week to execute weekly routine. 
    */
   async daily_routine() {
@@ -195,7 +194,9 @@ class Bot {
   }
 
   /**
-   * 
+   * Default weekly routine,  to be executed 4 times in a single day of the week.
+   * Searches for new images, stores, filters and select new URLs.
+   * @param {int} week - The number of the current week (0-51 in a year).
    */
   async weekly_routine(week) {
     // search and update list (locally)
