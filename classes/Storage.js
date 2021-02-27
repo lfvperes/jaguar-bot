@@ -132,15 +132,17 @@ class Storage {
         console.error('The connection was terminated while the message was still being sent');
       } else {
         console.log(`Status: ${res.statusCode} - ${res.statusMessage}`);
-        if (body) {
-          // parsing XML response into JSON format
-          xml2js.parseString(body, (err, result) => {
-            // saving result in a JSON file
-            fs.writeFileSync(context.xml_response, JSON.stringify(result), 
-              (err) => {
-                console.log('Error: ' + err.message);
-              });
-          });
+        if(context) {
+          if (body) {
+            // parsing XML response into JSON format
+            xml2js.parseString(body, (err, result) => {
+              // saving result in a JSON file
+              fs.writeFileSync(context.xml_response, JSON.stringify(result), 
+                (err) => {
+                  console.log('Error: ' + err.message);
+                });
+            });
+          }
         }
       }
       if (res.statusCode != '200') console.log('Response: ' + body);
@@ -210,7 +212,8 @@ class Storage {
    * Uploads a blob with the given name, to the container with the given name.
    * @param {String} container_name - Name of the container to which the new
    * blob will be uploaded. If none is given, uses the default name.
-   * @param {String} filename - Name of the new blob to be uploaded.
+   * @param {String} filename - Name of the file to be uploaded.
+   * @param {String} blob_name - Name of the new blob to be uploaded.
    */
   put_blob(container_name=this.default_container, filename, blob_name='') {
     // if no blob name is provided, will use the name of the file (without the folders and path)

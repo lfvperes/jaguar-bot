@@ -38,6 +38,8 @@ class Twitter {
         
         // content to be randomly chosen and posted with the pictures
         this.hashtags = JSON.parse(fs.readFileSync('./data/hashtags.json')).hashtags;
+
+        this.search_terms = JSON.parse(fs.readFileSync('./data/twitter_search.json')).twitter_search;
     }
 
     /**
@@ -146,6 +148,11 @@ class Twitter {
      * @param {int} count - The number of tweets to be returned.
      */
     async search_tweets(terms, count=15) {
+        // if no search term was provided, will choose randomly from the list
+        if(!terms) {
+            const R = Math.floor(Math.random() * this.search_terms.length);
+            terms = this.search_terms[R];
+        }
         console.log(`Searching for ${count} tweets about ${terms}...`);
         var tweets = [];
         this.client.get('search/tweets', {q: terms, count: count}, (err, twt, res) => {

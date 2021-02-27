@@ -4,6 +4,7 @@ keepers
 full_results.json
 url_results.json
 xml_response.json
+twitter_search.json
 
 config/*
 reference
