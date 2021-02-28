@@ -15,10 +15,15 @@ class Bot {
    * @constructor
    */
   constructor() {
-    this.twitter = new Twitter();
+    this.storage = new Storage();
+
+    // open files before Twitter class instance
+    this.storage.get_blob('jsondata', 'url_results.json', './data/url_results.json');
+    this.storage.get_blob('jsondata', 'twitter_search.json', './data/twitter_search.json');
+
     this.scraper = new Scraper();
     this.vision = new Vision();
-    this.storage = new Storage();
+    this.twitter = new Twitter();
 
     this.phrases = [                      // phrases to be posted in tweet_learned()
       "Probably a big fluffy cat. I'm still learning though. Did I get it right?",
@@ -29,8 +34,6 @@ class Bot {
     // default weekday when weekly routine will be executed (weekdays 0-6)
     this.default_weekday_rountine = 1;    // monday
 
-    this.storage.get_blob('jsondata', 'url_results.json', 'data/url_results.json');
-    this.storage.get_blob('jsondata', 'twitter_search.json', 'data/twitter_search.json');
   }
 
   /**
