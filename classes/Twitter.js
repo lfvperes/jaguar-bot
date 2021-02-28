@@ -79,7 +79,8 @@ class Twitter {
     tweet_media(media_path, text='', hashtag_index='') {
         if(!text) {
             // if not specified, choose randomly from the default list
-            text = this.phrases[Math.floor(Math.random() * this.phrases.length)];
+            const R = Math.floor(Math.random() * this.phrases.length);
+            text = this.phrases[R];
         }
         if(hashtag_index){
             // adding hashtag to the end to the text, if not empty
