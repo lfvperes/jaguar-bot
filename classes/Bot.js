@@ -108,7 +108,7 @@ class Bot {
               fs.unlinkSync(filename);
             }, 1000);
             // updating list blob in the cloud
-            this.storage.put_blob('urllist', this.scraper.url_results);
+            this.storage.put_blob('jsondata', this.scraper.url_results);
           }, 1000);
         }
       }, 1000);
@@ -210,7 +210,7 @@ class Bot {
     // wait for local files to be updated
     setTimeout(() => {
       // updating list blob in the cloud
-      this.storage.put_blob('urllist', this.scraper.url_results);
+      this.storage.put_blob('jsondata', this.scraper.url_results);
     }, 10000);
     
   }
