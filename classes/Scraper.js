@@ -218,6 +218,19 @@ class Scraper {
   }
 
   /**
+   * Delete failed url from list
+   */
+  undo_url_to_post() {
+    // open and parse file into js object
+    var url_list = JSON.parse(fs.readFileSync(this.url_results));
+    // remove the last element of posted
+    var url = url_list.selected.posted.pop();
+    console.log(`Removing this URL from the list: ${url}`);
+    // update the file with the new list
+    fs.writeFileSync(this.url_results, JSON.stringify(url_list));
+  }
+
+  /**
    * Receives a URL to download an image and returns the path to where
    * the file was saved.
    * If an invalid argument is passed, breaks and returns nothing. That
@@ -225,7 +238,7 @@ class Scraper {
    * @param {string} url - URL from which the image will be downloaded.
    * @param {string} img_name - The path and name of the resulting file.
    */
-  async download_from_url(target_url, img_name) {
+  async download_from_url(target_url, img_name, https=true) {
     let img_id = '';    // different names for each image
     
     // Checking if any parameter was passed
@@ -236,7 +249,11 @@ class Scraper {
     } else {        // In case an argument was passed
         // checking if it is a string
         if (typeof(target_url) === 'string') {
+          if(https) {
             target_url = target_url.replace(/http:/, 'https:');
+          } else {
+            target_url = target_url.replace(/https:/, 'http:');
+          }
             console.log(`Downloading image from the URL: ${target_url}...`);
         } else {    // if it is not, then it is not a URL
             console.log('Not a valid URL.');

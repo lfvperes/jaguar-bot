@@ -18,12 +18,14 @@ class Bot {
     this.storage = new Storage();
 
     // open files before Twitter class instance
-    this.storage.get_blob('jsondata', 'url_results.json', './data/url_results.json');
-    this.storage.get_blob('jsondata', 'twitter_search.json', './data/twitter_search.json');
+    (async () => {
+      await this.storage.get_blob('jsondata', 'url_results.json', './data/url_results.json');
+      await this.storage.get_blob('jsondata', 'twitter_search.json', './data/twitter_search.json');
+      this.twitter = new Twitter();
+    })()
 
     this.scraper = new Scraper();
     this.vision = new Vision();
-    this.twitter = new Twitter();
 
     this.phrases = [                      // phrases to be posted in tweet_learned()
       "Probably a big fluffy cat. I'm still learning though. Did I get it right?",
@@ -93,7 +95,10 @@ class Bot {
       setTimeout(async () => {
         if(url) {
           // download image locally and get path
-          const filename = await this.scraper.download_from_url(url);
+          var filename = await this.scraper.download_from_url(url);
+          if(!filename) {
+            var filename = await this.scraper.download_from_url(url, undefined, false);
+          }
           // wait for the file to be downloaded
           setTimeout(() => {
             // resize image when needed
@@ -113,6 +118,10 @@ class Bot {
         }
       }, 1000);
     }, 1500);
+  }
+
+  undo_new_post() {
+    
   }
 
   /**

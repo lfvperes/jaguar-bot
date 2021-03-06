@@ -282,7 +282,7 @@ class Storage {
    * @param {String} blob_name - The name of the blob to be downloaded.
    * @param {String} filename - The name of the file where the blob will be saved.
    */
-  get_blob(container_name=this.default_container, blob_name, filename) {
+  async get_blob(container_name=this.default_container, blob_name, filename) {
     const time_UTC_str = new Date().toUTCString();
     var path = `/${container_name}/${blob_name}`;
 
