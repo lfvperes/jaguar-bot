@@ -34,7 +34,7 @@ class Bot {
     ];
 
     // default weekday when weekly routine will be executed (weekdays 0-6)
-    this.default_weekday_rountine = 1;    // monday
+    this.default_weekday_rountine = 0;    // sunday
 
   }
 
@@ -213,9 +213,9 @@ class Bot {
    */
   async weekly_routine(week) {
     // search and update list (locally)
-    this.scraper.bing_img_search(undefined, 7, week * 7);
+    this.scraper.bing_img_search(undefined, 10, week * 7);
     // filter URLs and update list (locally)
-    await this.filter_url(7);
+    await this.filter_url(10);
     // wait for local files to be updated
     setTimeout(() => {
       // updating list blob in the cloud
