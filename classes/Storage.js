@@ -212,7 +212,7 @@ class Storage {
    * Uploads a blob with the given name, to the container with the given name.
    * @param {String} container_name - Name of the container to which the new
    * blob will be uploaded. If none is given, uses the default name.
-   * @param {String} filename - Name of the file to be uploaded.
+   * @param {String} filename - Name of the file (with local path) to be uploaded.
    * @param {String} blob_name - Name of the new blob to be uploaded.
    */
   put_blob(container_name=this.default_container, filename, blob_name='') {
