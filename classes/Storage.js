@@ -212,7 +212,7 @@ class Storage {
    * Uploads a blob with the given name, to the container with the given name.
    * @param {String} container_name - Name of the container to which the new
    * blob will be uploaded. If none is given, uses the default name.
-   * @param {String} filename - Name of the file to be uploaded.
+   * @param {String} filename - Name of the file (with local path) to be uploaded.
    * @param {String} blob_name - Name of the new blob to be uploaded.
    */
   put_blob(container_name=this.default_container, filename, blob_name='') {
@@ -282,7 +282,7 @@ class Storage {
    * @param {String} blob_name - The name of the blob to be downloaded.
    * @param {String} filename - The name of the file where the blob will be saved.
    */
-  get_blob(container_name=this.default_container, blob_name, filename) {
+  async get_blob(container_name=this.default_container, blob_name, filename) {
     const time_UTC_str = new Date().toUTCString();
     var path = `/${container_name}/${blob_name}`;
 

@@ -15,10 +15,17 @@ class Bot {
    * @constructor
    */
   constructor() {
-    this.twitter = new Twitter();
+    this.storage = new Storage();
+
+    // open files before Twitter class instance
+    (async () => {
+      await this.storage.get_blob('jsondata', 'url_results.json', './data/url_results.json');
+      await this.storage.get_blob('jsondata', 'twitter_search.json', './data/twitter_search.json');
+      this.twitter = new Twitter();
+    })()
+
     this.scraper = new Scraper();
     this.vision = new Vision();
-    this.storage = new Storage();
 
     this.phrases = [                      // phrases to be posted in tweet_learned()
       "Probably a big fluffy cat. I'm still learning though. Did I get it right?",
@@ -27,10 +34,8 @@ class Bot {
     ];
 
     // default weekday when weekly routine will be executed (weekdays 0-6)
-    this.default_weekday_rountine = 1;    // monday
+    this.default_weekday_rountine = 0;    // sunday
 
-    this.storage.get_blob('jsondata', 'url_results.json', 'data/url_results.json');
-    this.storage.get_blob('jsondata', 'twitter_search.json', 'data/twitter_search.json');
   }
 
   /**
@@ -90,7 +95,10 @@ class Bot {
       setTimeout(async () => {
         if(url) {
           // download image locally and get path
-          const filename = await this.scraper.download_from_url(url);
+          var filename = await this.scraper.download_from_url(url);
+          if(!filename) {
+            var filename = await this.scraper.download_from_url(url, undefined, false);
+          }
           // wait for the file to be downloaded
           setTimeout(() => {
             // resize image when needed
@@ -105,11 +113,15 @@ class Bot {
               fs.unlinkSync(filename);
             }, 1000);
             // updating list blob in the cloud
-            this.storage.put_blob('urllist', this.scraper.url_results);
+            this.storage.put_blob('jsondata', this.scraper.url_results);
           }, 1000);
         }
       }, 1000);
     }, 1500);
+  }
+
+  undo_new_post() {
+    
   }
 
   /**
@@ -201,13 +213,13 @@ class Bot {
    */
   async weekly_routine(week) {
     // search and update list (locally)
-    this.scraper.bing_img_search(undefined, 7, week * 7);
+    this.scraper.bing_img_search(undefined, 10, week * 7);
     // filter URLs and update list (locally)
-    await this.filter_url(7);
+    await this.filter_url(10);
     // wait for local files to be updated
     setTimeout(() => {
       // updating list blob in the cloud
-      this.storage.put_blob('urllist', this.scraper.url_results);
+      this.storage.put_blob('jsondata', this.scraper.url_results);
     }, 10000);
     
   }
