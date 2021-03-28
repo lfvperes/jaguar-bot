@@ -199,15 +199,16 @@ class Bot {
     // making new post
     await this.new_post(weekday);
 
+    setTimeout(() => {
+      // executing weekly routine when it's the defined day (weekdays 0-6)
+      if (weekday === this.default_weekday_rountine) this.new_photos(week);
+    }, 10000);
   }
 
   new_photosaaaa(week) {
     if (weekday === this.default_weekday_rountine) this.weekly_routine(week);
     // waiting for new post to be completed and all files updated
-    setTimeout(() => {
-      // executing weekly routine when it's the defined day (weekdays 0-6)
-      if (weekday === this.default_weekday_rountine) this.weekly_routine(week);
-    }, 10000);
+    
   }
 
   /**
@@ -218,8 +219,8 @@ class Bot {
   async new_photos(week) {
     
     var url_list = JSON.parse(fs.readFileSync(this.scraper.url_results));
-    not_posted = url_list.selected.not_posted;
-    unfiltered = url_list.unfiltered;
+    var not_posted = url_list.selected.not_posted;
+    var unfiltered = url_list.unfiltered;
     if (not_posted.length < 4 && unfiltered.length < 4) {
       // search and update list (locally)
       this.scraper.bing_img_search(undefined, 10, week * 7);
