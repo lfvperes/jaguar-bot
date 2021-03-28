@@ -198,24 +198,39 @@ class Bot {
 
     // making new post
     await this.new_post(weekday);
+
+  }
+
+  new_photosaaaa(week) {
+    if (weekday === this.default_weekday_rountine) this.weekly_routine(week);
     // waiting for new post to be completed and all files updated
     setTimeout(() => {
       // executing weekly routine when it's the defined day (weekdays 0-6)
       if (weekday === this.default_weekday_rountine) this.weekly_routine(week);
     }, 10000);
-
   }
 
   /**
-   * Default weekly routine,  to be executed 4 times in a single day of the week.
+   * Default weekly routine,  to be executed once a day before all posts of that day.
    * Searches for new images, stores, filters and select new URLs.
    * @param {int} week - The number of the current week (0-51 in a year).
    */
-  async weekly_routine(week) {
-    // search and update list (locally)
-    this.scraper.bing_img_search(undefined, 10, week * 7);
-    // filter URLs and update list (locally)
-    await this.filter_url(10);
+  async new_photos(week) {
+    
+    var url_list = JSON.parse(fs.readFileSync(this.scraper.url_results));
+    not_posted = url_list.selected.not_posted;
+    unfiltered = url_list.unfiltered;
+    if (not_posted.length < 4 && unfiltered.length < 4) {
+      // search and update list (locally)
+      this.scraper.bing_img_search(undefined, 10, week * 7);
+      // filter URLs and update list (locally)
+      await this.filter_url(10);
+    } else if (not_posted.length < 4) {
+      await this.filter_url(10);
+    } else if (unfiltered.length < 4) {
+      this.scraper.bing_img_search(undefined, 10, week * 7);
+    }
+      
     // wait for local files to be updated
     setTimeout(() => {
       // updating list blob in the cloud
