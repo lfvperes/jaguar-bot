@@ -34,12 +34,12 @@ class Twitter {
         });
         
         // content to be randomly chosen and posted with the pictures
-        this.phrases = JSON.parse(fs.readFileSync('./data/tweet_content.json')).phrases;
+        this.phrases = JSON.parse(fs.readFileSync('./data/twitter/tweet_content.json')).phrases;
         
         // content to be randomly chosen and posted with the pictures
-        this.hashtags = JSON.parse(fs.readFileSync('./data/hashtags.json')).hashtags;
+        this.hashtags = JSON.parse(fs.readFileSync('./data/twitter/hashtags.json')).hashtags;
 
-        this.search_terms = JSON.parse(fs.readFileSync('./data/twitter_search.json')).twitter_search;
+        this.search_terms = JSON.parse(fs.readFileSync('./data/twitter/twitter_search.json')).twitter_search;
     }
 
     /**
@@ -199,6 +199,10 @@ class Twitter {
         // (1 day) before posting the image, it will be sent as DM to me
         // i will reply yes/no to confirm if the image will be posted
         // if i don't reply it will be posted
+    }
+
+    follow() {
+        
     }
 }
 

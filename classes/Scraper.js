@@ -15,7 +15,7 @@ class Scraper {
   /**
    * @constructor
    */
-  constructor(){
+  constructor() {
 
     // defining search parameters and keys
     this.key = process.env.BING_IMG_KEY;  // subscription key
@@ -24,15 +24,18 @@ class Scraper {
     this.count = 10;                      // default results count per search
     this.offset = 1;                      // default first result
     // default search terms
-    this.terms = JSON.parse(fs.readFileSync('./data/search_terms.json')).terms;
-    
+    this.terms_path = './data/bing/search_terms.json'
+    this.terms = JSON.parse(fs.readFileSync(this.terms_path)).terms;
+
     // where to store results
     this.full_results = './data/full_results.json';
     this.url_results = './data/url_results.json';
     this.url_list;
 
+    this.latest_result = '';
+
   }
-  
+
   /**
    * Callback function that handles and parses the responses, 
    * including how the search results will be processed.
@@ -58,20 +61,23 @@ class Scraper {
         // get first result
         let fst_img_result = img_results.value[0];
 
-        console.log(`Found ${img_results.value.length} results!`);
-        console.log(`First image web search url: ${fst_img_result.webSearchUrl}`);
-        
+        context.latest_result = img_results.value[0].contentUrl;
+
+        console.log(`Found ${img_results.value.length} result(s)!`);
+        console.log(`First image web search url: ${fst_img_result.contentUrl}`);
+
         // extracting and storing URLs in array
-        img_results.value.forEach((r) => {url_list.push(r.webSearchUrl);});
+        img_results.value.forEach((r) => { url_list.push(r.contentUrl); });
         // writing full results in file
-        fs.writeFileSync(context.full_results, body,
-          (err) => {
-            console.log('Error: ' + err.message);
-          });
+        // fs.writeFileSync(context.full_results, body,
+        //   (err) => {
+        //     console.log('Error: ' + err.message);
+        //   });
+
 
       } else console.log("No results");
 
-      context.update_url_list();
+      // context.update_url_list();
     });
 
     // handling errors
@@ -90,12 +96,12 @@ class Scraper {
    * @param {int} r_count - how many results will be returned
    * @param {int} start - first result
    */
-  bing_img_search(search_term='', r_count=this.count, start=this.offset) {
-    if(!search_term) {
+  bing_img_search(search_term = '', r_count = this.count, start = this.offset) {
+    if (!search_term) {
       // if not specified, choose randomly from the default list
       search_term = this.terms[Math.floor(Math.random() * this.terms.length)];
     }
-    console.log(`Searching for ${r_count} ${search_term} images, starting from #${start}...`);
+    console.log(`Searching for ${r_count} "${search_term}" images, starting from #${start}...`);
 
     // constructing search request and query
     const req_params = {
@@ -138,7 +144,7 @@ class Scraper {
       // reading file and parsing into object
       var new_results = JSON.parse(fs.readFileSync(this.full_results));
       // extracting and storing new URLs in array
-      new_results.value.forEach((r) => {new_url_list.push(r.contentUrl)});
+      new_results.value.forEach((r) => { new_url_list.push(r.contentUrl) });
       // removing duplicates between the new URLs, if any
       new_url_list = [...new Set(new_url_list)];
 
@@ -148,7 +154,7 @@ class Scraper {
         // reading file and parsing into object
         var old_url_list = JSON.parse(fs.readFileSync(this.url_results));
         // adding new URLs into array under 'unfiltered'
-        new_url_list.forEach((url) => { 
+        new_url_list.forEach((url) => {
           if (  // avoid adding an URL that is already on the list
             !old_url_list.unfiltered.includes(url) &&
             !old_url_list.selected.posted.includes(url) &&
@@ -157,12 +163,12 @@ class Scraper {
           ) {
             old_url_list.unfiltered.push(url);
             count_new++;
-            console.log(`#${new_url_list.indexOf(url)+1}: New URL. Saving ${url}`);
+            console.log(`#${new_url_list.indexOf(url) + 1}: New URL. Saving ${url}`);
           } else {
-            console.log(`#${new_url_list.indexOf(url)+1}: Duplicate URL. Skipping ${url}`);
+            console.log(`#${new_url_list.indexOf(url) + 1}: Duplicate URL. Skipping ${url}`);
           }
         });
-        
+
         console.log(`Saving ${count_new} new URLs to the unfiltered list, from ${new_url_list.length} found`);
         console.log('-------------------------------');
 
@@ -202,7 +208,7 @@ class Scraper {
     // open and parse file into js object
     var url_list = JSON.parse(fs.readFileSync(this.url_results));
     // check if there are selected URLs to posted
-    if(url_list.selected.not_posted.length != 0) {
+    if (url_list.selected.not_posted.length != 0) {
       // remove the first element of not_posted
       var url = url_list.selected.not_posted.shift();
       // push that URL to the posted list
@@ -213,7 +219,7 @@ class Scraper {
       console.log('There are no new URLs to be posted');
       url = ''
     }
-    
+
     return url;
   }
 
@@ -238,51 +244,51 @@ class Scraper {
    * @param {string} url - URL from which the image will be downloaded.
    * @param {string} img_name - The path and name of the resulting file.
    */
-  async download_from_url(target_url, img_name, https=true) {
+  async download_from_url(target_url, img_name, https = true) {
     let img_id = '';    // different names for each image
-    
+
     // Checking if any parameter was passed
     if (!target_url) {     // No argument URL was passed
       console.log('No URL received.');
       console.log('-------------------------------');
       return;
     } else {        // In case an argument was passed
-        // checking if it is a string
-        if (typeof(target_url) === 'string') {
-          if(https) {
-            target_url = target_url.replace(/http:/, 'https:');
-          } else {
-            target_url = target_url.replace(/https:/, 'http:');
-          }
-            console.log(`Downloading image from the URL: ${target_url}...`);
-        } else {    // if it is not, then it is not a URL
-            console.log('Not a valid URL.');
-            console.log('-------------------------------');
-            return;
+      // checking if it is a string
+      if (typeof (target_url) === 'string') {
+        if (https) {
+          target_url = target_url.replace(/http:/, 'https:');
+        } else {
+          target_url = target_url.replace(/https:/, 'http:');
         }
+        console.log(`Downloading image from the URL: ${target_url}...`);
+      } else {    // if it is not, then it is not a URL
+        console.log('Not a valid URL.');
+        console.log('-------------------------------');
+        return;
+      }
     }
 
     // making each file name unique using date in ms
     if (!img_name) {
-        let time = new Date();
-        img_id = time.getTime();
+      let time = new Date();
+      img_id = time.getTime();
     } else img_id = img_name;
-    
+
     // parameters to the image downloader
     const options = {
-        url: target_url,
-        dest: `./data/img/image${img_id}.jpg`
+      url: target_url,
+      dest: `./data/img/image${img_id}.jpg`
     };
 
     // downloading image
     var path = await imgDl.image(options)
-        .then(({ filename }) => {
-          // saved to /path/to/dest/photo
-          console.log('Saved to', filename);
-          console.log('-------------------------------');
-          return filename;
-        })
-        .catch((err) => console.log(err));
+      .then(({ filename }) => {
+        // saved to /path/to/dest/photo
+        console.log('Saved to', filename);
+        console.log('-------------------------------');
+        return filename;
+      })
+      .catch((err) => console.log(err));
 
     // the path could be accessed from options.dest
     // but this alternative will wait for the promise
@@ -316,22 +322,22 @@ class Scraper {
    * with triple the width and height, making the area 9 times bigger (that
    * is, 3^2 times bigger).
    */
-  resize_img(filename, factor=1) {
+  resize_img(filename, factor = 1) {
     console.log('Resizing image...');
     const image = sharp(fs.readFileSync(filename));
 
     // metadata is used to resize based on the original width and height
     image
-    .metadata()
-    .then((metadata) => {
-      return image
-        .resize(Math.round(metadata.width / factor))
-        .webp()
-        .toBuffer();
-    })
-    .then((data) => {
-      fs.writeFileSync(filename, data);
-    });
+      .metadata()
+      .then((metadata) => {
+        return image
+          .resize(Math.round(metadata.width / factor))
+          .webp()
+          .toBuffer();
+      })
+      .then((data) => {
+        fs.writeFileSync(filename, data);
+      });
   }
 
 }
