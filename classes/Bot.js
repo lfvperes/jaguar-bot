@@ -15,15 +15,8 @@ class Bot {
    * @constructor
    */
   constructor() {
-    this.storage = new Storage();
 
-    // open files before Twitter class instance
-    (async () => {
-      await this.storage.get_blob('jsondata', 'url_results.json', './data/url_results.json');
-      await this.storage.get_blob('jsondata', 'twitter_search.json', './data/twitter_search.json');
-      this.twitter = new Twitter();
-    })()
-
+    this.twitter = new Twitter();
     this.scraper = new Scraper();
     this.vision = new Vision();
 
@@ -61,38 +54,16 @@ class Bot {
    * Also updates the JSON file containing the URL list.
    * @param {String} weekday - The name of the current day.
    */
-  async new_post(weekday) {
-    // GET method to list blobs, creating file with the response
-    this.storage.list_blobs();
-    var blobs;
+  async new_post(weekday, week) {
     // wait for the file to be created
     setTimeout(async () => {
-      // array with name, date and size
-      blobs = this.storage.list_blob_time();
-      console.log(`There are ${blobs.length} blobs, the maximum is ${this.storage.dataset_size+1}`);
-      // if there are enough blobs, one must be replaced
-      if (blobs.length >= this.storage.dataset_size) {
-        let oldest_blob = {
-          date: new Date()
-        };
-        for (const blob of blobs) {
-          // the blob to be replaced is the oldest
-          if (oldest_blob.date > blob.date) {
-            oldest_blob = blob;
-          }
-        }
-        console.log('The oldest blob is:');
-        console.log(oldest_blob);
-        var blob_name = oldest_blob.name;
-      } else {
-        // if there are 0 blobs, the new blob is image0.jpg etc
-        var blob_name = `image${blobs.length}.jpg`;
-      }
+      
+      this.scraper.bing_img_search(undefined, 1, week * 7);
 
-      // update list (posted/not_posted) and get the url for the new post
-      var url = this.scraper.url_to_post();
       // will not try to post if there are no URLs to post
       setTimeout(async () => {
+        var url = this.scraper.latest_result;
+        
         if(url) {
           // download image locally and get path
           var filename = await this.scraper.download_from_url(url);
@@ -105,15 +76,11 @@ class Bot {
             if(fs.statSync(filename)["size"] > 5 * 2 ** 20) {
               this.scraper.resize_img(filename);
             }
-            // upload new image
-            this.storage.put_blob(this.storage.default_container, filename, blob_name);
             this.twitter.tweet_media(filename, undefined, weekday);
             setTimeout(() => {
               // delete file locally
               fs.unlinkSync(filename);
             }, 1000);
-            // updating list blob in the cloud
-            this.storage.put_blob('jsondata', this.scraper.url_results);
           }, 1000);
         }
       }, 1000);
