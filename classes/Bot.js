@@ -54,17 +54,20 @@ class Bot {
    * Also updates the JSON file containing the URL list.
    * @param {String} weekday - The name of the current day.
    */
-  async new_post(weekday, week) {
+  async new_post(weekday, week, select=0) {
     // wait for the file to be created
     setTimeout(async () => {
       
-      this.scraper.bing_img_search(undefined, 1, week * 7);
+      
+      this.scraper.bing_img_search(undefined, 1, week * 7 + select);
 
       // will not try to post if there are no URLs to post
       setTimeout(async () => {
         var url = this.scraper.latest_result;
-        
-        if(url) {
+            
+        var tags = await this.vision.get_tags(url, false);
+        var score = this.vision.analyze_tags(tags);
+        if(score > 0) {
           // download image locally and get path
           var filename = await this.scraper.download_from_url(url);
           if(!filename) {
@@ -82,7 +85,13 @@ class Bot {
               fs.unlinkSync(filename);
             }, 1000);
           }, 1000);
+        } else {
+          console.log("This was a car. I'm not posting that.");
+          select++;
+          this.new_post(weekday, week, select);
         }
+            
+
       }, 1000);
     }, 1500);
   }
