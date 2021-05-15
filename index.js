@@ -10,4 +10,3 @@ const week = Math.ceil((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 6
 
 // making new post
 bot.new_post(weekday, week);
-

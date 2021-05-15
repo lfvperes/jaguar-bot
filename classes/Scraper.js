@@ -61,13 +61,15 @@ class Scraper {
         // get first result
         let fst_img_result = img_results.value[0];
 
-        context.latest_result = img_results.value[0].contentUrl;
-
+        context.latest_result = fst_img_result.contentUrl;
+        
         console.log(`Found ${img_results.value.length} result(s)!`);
         console.log(`First image web search url: ${fst_img_result.contentUrl}`);
-
+        
         // extracting and storing URLs in array
         img_results.value.forEach((r) => { url_list.push(r.contentUrl); });
+        // context.latest_result = url_list;
+
         // writing full results in file
         // fs.writeFileSync(context.full_results, body,
         //   (err) => {
