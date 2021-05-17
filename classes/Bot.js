@@ -54,12 +54,12 @@ class Bot {
    * Also updates the JSON file containing the URL list.
    * @param {String} weekday - The name of the current day.
    */
-  async new_post(weekday, week, select=0) {
+  async new_post(weekday, start, select=0) {
     // wait for the file to be created
     setTimeout(async () => {
       
       
-      this.scraper.bing_img_search(undefined, 1, week * 7 + select);
+      this.scraper.bing_img_search(undefined, 1, start * 7 + select);
 
       // will not try to post if there are no URLs to post
       setTimeout(async () => {
@@ -88,7 +88,7 @@ class Bot {
         } else {
           console.log("This was a car. I'm not posting that.");
           select++;
-          this.new_post(weekday, week, select);
+          this.new_post(weekday, start, select);
         }
             
 
