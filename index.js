@@ -9,4 +9,6 @@ const weekday = today.getDay();
 const week = Math.ceil((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24 * 7));
 
 // making new post
-bot.new_post(weekday, week);
+bot.new_post(weekday, Math.random * week);
+
+// bot.new_post(weekday, start);
