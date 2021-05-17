@@ -86,7 +86,7 @@ class Bot {
             }, 1000);
           }, 1000);
         } else {
-          console.log("This was a car. I'm not posting that.");
+          if(score < 0) console.log("This was a car. I'm not posting that.");
           select++;
           this.new_post(weekday, start, select);
         }
